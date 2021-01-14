@@ -1,0 +1,16 @@
+//
+// Created by kei on 14/01/21.
+//
+
+#ifndef HACKERRANK_SOLUTIONS_SOLUTIONCPP_H
+#define HACKERRANK_SOLUTIONS_SOLUTIONCPP_H
+
+
+
+class SolutionCPP {
+
+};
+
+
+
+#endif //HACKERRANK_SOLUTIONS_SOLUTIONCPP_H
