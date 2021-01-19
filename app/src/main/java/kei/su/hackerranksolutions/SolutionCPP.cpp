@@ -214,6 +214,34 @@ SinglyLinkedListNode* mergeLists(SinglyLinkedListNode* head1, SinglyLinkedListNo
     return result;
 }
 
+// Version 2 of reverse a linked list
+// reverse a linked list and return the head of the linked list
+// written in Java
+static SinglyLinkedListNode reverse(SinglyLinkedListNode head) {
+        SinglyLinkedListNode preNode = null;
+        while(head!=null){
+            // get the crrent's next node
+            SinglyLinkedListNode nextNode = head.next;
+
+            // assign the preNode to be the next node of head;
+            head.next = preNode;
+
+            //update the preNode;
+            preNode = head;
+
+            // advance the head to next node
+            head = nextNode;
+
+        }
+
+        // since the head is null after the while loop, we will have to
+        // go back to the previous node which is the begining of the reversed list
+        return preNode;
+
+
+    }
+
+
 
 
 
