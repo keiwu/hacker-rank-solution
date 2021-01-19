@@ -241,6 +241,57 @@ static SinglyLinkedListNode reverse(SinglyLinkedListNode head) {
 
     }
 
+// Java version of merge two sorted linked list;
+// Main idea is create a dummy node to hang the result to.
+// Assign the dummy node to a new variable and use that variable to do the work;
+// When the work is done, return the dummy variable pointing the head of the merged list;
+static SinglyLinkedListNode mergeLists(SinglyLinkedListNode head1, SinglyLinkedListNode head2) {
+        // a dummy first node to hang the result on
+        SinglyLinkedListNode result = new SinglyLinkedListNode(0);
+        //we will work using the currentNode
+        SinglyLinkedListNode currentNode = result;
+
+        while(true){
+            if (head1==null){
+                // append head2 to the currentNode
+                currentNode.next = head2;
+                break;
+
+            } else if (head2==null){
+                // append head1 to the currentNode
+                currentNode.next=head1;
+                break;
+
+            }
+
+            if (head1.data <= head2.data){
+                // append head1 to the next of current node
+                currentNode.next = head1;
+                // advance head1
+                head1 = head1.next;
+            } else {
+                // append head2 to the next of current node
+                currentNode.next = head2;
+                //advance head2
+                head2 = head2.next;
+
+            }
+            // advance current node
+            currentNode = currentNode.next;
+
+        }
+
+        //move the dummy node to the next node which is the true beginning of the linked
+        // list
+        result = result.next;
+
+        return result;
+
+
+
+
+    }
+
 
 
 
