@@ -183,3 +183,70 @@ fun reversePrint(llist: SinglyLinkedListNode?): Unit {
 
 }
 
+
+fun reverse(llist: SinglyLinkedListNode?): SinglyLinkedListNode? {
+    var current = llist
+    var preNode: SinglyLinkedListNode? = null
+    var next: SinglyLinkedListNode?
+    //reverse the list; this revers something in between the first and last item
+    while (current!= null){
+        //next is assigned to current next
+        next = current.next
+
+        //current next should point back to previous node
+        current.next = preNode
+
+        //previous node becomes current node
+        preNode = current
+
+        //current move to the current next
+        current = next
+    }
+
+    //when we exit the whileloop, preNode is the last element of the reversed link list
+    // ths assign it to head
+
+    return preNode
+
+
+
+}
+
+
+// Complete the getNode function below.
+
+/*
+ * For your reference:
+ *
+ * SinglyLinkedListNode {
+ *     data: Int
+ *     next: SinglyLinkedListNode
+ * }
+ *
+ */
+
+// given a linked list with a pointer to the head, find the value at position start counting backward from tail;
+// We reverse the list and get the head of the reversed list, then traverse the reversed list from the head till the position specified.
+fun getNode(llist: SinglyLinkedListNode?, positionFromTail: Int): Int {
+    // reverse the linked list
+    var reversedList = reverse(llist)
+
+    // keep tracks of the position of the linked list
+    var index = 0
+
+    while (reversedList != null){
+        //System.out.println(reversedList.data)
+        if (positionFromTail == index)
+            return reversedList.data
+
+        //increase the index
+        index++
+
+        //advance to the next node
+        reversedList = reversedList.next
+    }
+
+    return 0
+
+}
+
