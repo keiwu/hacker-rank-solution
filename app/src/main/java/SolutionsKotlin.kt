@@ -52,7 +52,7 @@ fun dynamicArray(n: Int, queries: Array<Array<Int>>): Array<Int> {
         } else if (queries[i].get(0) == 2){
             val sequenceSize = sequencesList[sequenceNumber].size
             // find the value of element y% size of the sequence and assign to lastAnswer
-            lastAnswer = sequencesList[sequenceNumber][queries[i].get(2)% sequenceSize]
+            lastAnswer = sequencesList[sequenceNumber][queries[i].get(2) % sequenceSize]
             //add lastAnswer to the output array
             outputArray.add(lastAnswer)
         }
@@ -279,4 +279,10 @@ fun reverseLinkedList(llist: SinglyLinkedListNode?): SinglyLinkedListNode? {
 
 
 }
+
+
+
+
+
+
 
