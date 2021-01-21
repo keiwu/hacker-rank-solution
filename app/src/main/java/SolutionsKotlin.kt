@@ -225,8 +225,7 @@ fun reverse(llist: SinglyLinkedListNode?): SinglyLinkedListNode? {
  *
  */
 
-// given a linked list with a pointer to the head, find the value at position start counting backward from tail;
-// We reverse the list and get the head of the reversed list, then traverse the reversed list from the head till the position specified.
+
 fun getNode(llist: SinglyLinkedListNode?, positionFromTail: Int): Int {
     // reverse the linked list
     var reversedList = reverse(llist)
@@ -247,6 +246,37 @@ fun getNode(llist: SinglyLinkedListNode?, positionFromTail: Int): Int {
     }
 
     return 0
+
+}
+
+
+// Kotlin version of reverse a linked list
+
+fun reverseLinkedList(llist: SinglyLinkedListNode?): SinglyLinkedListNode? {
+    var current = llist
+    var preNode: SinglyLinkedListNode? = null
+    var next: SinglyLinkedListNode?
+    //reverse the list; this revers something in between the first and last item
+    while (current!= null){
+        //next is assigned to current next
+        next = current.next
+
+        //current next should point back to previous node
+        current.next = preNode
+
+        //previous node becomes current node
+        preNode = current
+
+        //current move to the current next
+        current = next
+    }
+
+    //when we exit the whileloop, preNode is the last element of the reversed link list
+    // ths assign it to head
+
+    return preNode
+
+
 
 }
 
