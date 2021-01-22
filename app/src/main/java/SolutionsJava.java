@@ -55,4 +55,44 @@ public class SolutionsJava {
         return head;
 
     }
+
+    // Complete the findMergeNode function below.
+
+    /*
+     * For your reference:
+     *
+     * SinglyLinkedListNode {
+     *     int data;
+     *     SinglyLinkedListNode next;
+     * }
+     *
+     */
+
+    // given two head nodes of two linked list, find the common node which points to the same memory address
+    // algorithm: compare each node of list 1 to each node in list 2 using two while loop
+    static int findMergeNode(SinglyLinkedListNode head1, SinglyLinkedListNode head2) {
+        while(head1!=null){
+            // assign head2 to a temp variable;
+            SinglyLinkedListNode temp=head2;
+            while (temp!=null){
+                // compare head to each of the 2nd linked list node
+                if (head1 == temp)
+                    return head1.data;  // if node in list 1 == node in list 2; return
+
+                temp=temp.next; //advance to the next node of list2
+            }
+            //advance to the next node of list 1
+            head1=head1.next;
+        }
+
+        // no node is equal
+        return -1;
+
+    }
+
+
+
+
+
+
 }
