@@ -92,6 +92,82 @@ public class SolutionsJava {
 
 
 
+    static class DoublyLinkedListNode {
+        public int data;
+        public DoublyLinkedListNode next;
+        public DoublyLinkedListNode prev;
+
+        public DoublyLinkedListNode(int nodeData) {
+            this.data = nodeData;
+            this.next = null;
+            this.prev = null;
+        }
+    }
+
+    // Complete the sortedInsert function below.
+
+    /*
+     * For your reference:
+     *
+     * DoublyLinkedListNode {
+     *     int data;
+     *     DoublyLinkedListNode next;
+     *     DoublyLinkedListNode prev;
+     * }
+     *
+     */
+
+    // Insert a node into a doubly linked list in a sorted list and maintained the sorting property
+    static DoublyLinkedListNode sortedInsert(DoublyLinkedListNode head, int data) {
+        // create the node with data
+        DoublyLinkedListNode newNode = new DoublyLinkedListNode(data);
+
+        //assign head to current, and use current to do iterations
+        DoublyLinkedListNode current;
+
+        // if the lined list is empty, the newNode is the head of the list
+        if (head==null){
+            head=newNode;
+        } else if (head.data >= data){ // insert new node to the front of the list
+            //head's prev is newNOde
+            head.prev=newNode;
+            // newNode's next is head
+            newNode.next=head;
+            // newNode becomes the head of the linked list
+            head=newNode;
+
+        } else{
+            current=head;
+            while(current.next!=null && data>=current.next.data){
+                current=current.next;
+            }
+
+            if (current.next!=null){
+                // if current next is not null, have that node's prev point to the newNode
+                current.next.prev=newNode;
+            }
+
+            //newNode's prev point to current
+            newNode.prev=current;
+            //newNode's next point to current next.  if current next is null, it points              //to null
+            newNode.next=current.next;
+            //current's next point to new node
+            current.next=newNode;
+
+
+        }
+
+        //head is not changed, but the underlying nodes changed
+        return head;
+
+    }
+
+
+
+
+
+
+
 
 
 

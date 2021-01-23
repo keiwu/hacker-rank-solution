@@ -1,3 +1,33 @@
+class DoublyLinkedListNode(var data: Int) {
+    var next: DoublyLinkedListNode? = null
+    var prev: DoublyLinkedListNode? = null
+}
+
+fun sortedInsert(head: DoublyLinkedListNode?, data: Int): DoublyLinkedListNode? {
+    // insert a node with data into a DoublyLinkedList
+    var head = head
+    var current: DoublyLinkedListNode?
+    val newNode = DoublyLinkedListNode(data)
+    if (head == null) head = newNode else if (head.data >= data) {
+        newNode.next = head
+        newNode.next!!.prev = newNode
+        head = newNode
+    } else {
+        current = head
+        while (current!!.next != null && current.next!!.data < data) {
+            current = current.next
+        }
+        newNode.next = current.next
+        if (current.next != null) {
+            newNode.next!!.prev = newNode
+        }
+        current.next = newNode
+        newNode.prev = current
+    }
+    return head
+}
+
+
 
 class SinglyLinkedListNode(nodeData: Int) {
     public var data: Int
