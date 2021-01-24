@@ -224,7 +224,7 @@ public class SolutionsJava {
 
     // Binary tree preorder traversal using recursive
     public static void preOrder(Node root) {
-        while(root!=null){
+        while(root!=null){      //we should use if(root!=null) instead of a while loop
             System.out.print(root.data + " ");
             if(root.left!=null)
                 preOrder(root.left);
