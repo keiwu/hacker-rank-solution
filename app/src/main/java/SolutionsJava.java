@@ -164,6 +164,53 @@ public class SolutionsJava {
 
 
 
+    /*
+     * For your reference:
+     *
+     * DoublyLinkedListNode {
+     *     int data;
+     *     DoublyLinkedListNode next;
+     *     DoublyLinkedListNode prev;
+     * }
+     *
+     */
+    // reverse a doubly linked list
+    // Same version of code doesn't work on Kotlin.
+    // So remember if you think your Kotlin code is right but still fail some of the test cases,
+    // , be sure to write the same version of code (usually just change the way variable is declared plus semicolon;),
+    // and then it will pass the test cases.  It happened couple of times already.
+    static DoublyLinkedListNode reverse(DoublyLinkedListNode head) {
+        DoublyLinkedListNode temp = null;
+        DoublyLinkedListNode current = head;
+
+        while(current!=null){
+            // if the current's next pointer is null, we point the current's next to current's prev node and break out of the loop
+            if (current.next==null){
+                current.next=current.prev;
+                break;
+            }
+
+            // make sure to store the current's previous node first; critical step
+            DoublyLinkedListNode pre=current.prev;
+            // current's prev node becomes current's next when reversing
+            // make sure to use an example to walk thru the code if confused
+            current.prev=current.next;
+            // holding the next node before making change to it
+            temp=current.next;
+            // current's next is the previous node when reversing
+            current.next=pre;
+
+            // advance the next node
+            current=temp;
+
+        }
+
+        return current;
+
+    }
+
+
+
 
 
 
