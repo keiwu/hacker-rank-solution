@@ -237,6 +237,26 @@ public class SolutionsJava {
         }
     }
 
+    // post order traversal using recursive method.
+    // same idea as preOrder traversal, but delaying printing the node value until all the left/right childs are print
+    public static void postOrder(Node root) {
+        while(root!=null){
+
+            if(root.left!=null)
+                postOrder(root.left);
+
+            if (root.right!=null)
+                postOrder(root.right);
+
+            System.out.print(root.data + " ");
+
+            break;
+
+        }
+    }
+
+
+
 
 
 
