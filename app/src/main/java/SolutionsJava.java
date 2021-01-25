@@ -274,6 +274,31 @@ public class SolutionsJava {
 
 
 
+    // find the height of a binary tree
+    public static int height(Node root) {
+        // if root is null, the height is 0
+        if (root==null)
+            return 0;
+
+        // initialize left and right subtree height to 0;
+        int leftTreeHeight=0;
+        int rightTreeHeight=0;
+
+        // if left subtree is not null, we have one more level plus the height of
+        // its subtree
+        if (root.left!=null)
+            leftTreeHeight = height(root.left)+1;
+
+        // same as the right subtree
+        if (root.right!=null)
+            rightTreeHeight=height(root.right)+1;
+
+        // compare the height of the left and right subtree, we return the max of the two trees
+        return Math.max(leftTreeHeight, rightTreeHeight);
+    }
+
+
+
 
 
 
