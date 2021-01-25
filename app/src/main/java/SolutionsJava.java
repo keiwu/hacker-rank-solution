@@ -297,6 +297,34 @@ public class SolutionsJava {
         return Math.max(leftTreeHeight, rightTreeHeight);
     }
 
+    //Breath first printing a binary tree values
+    //It prints out the tree values at each level from root to leaves
+    public static void printLevelOrder(Node node){
+        //loop from level 1 to height of the tree
+        // getHeight is another helper function to calculate the height of the tree
+        for (int level=1; level<=height(node); level++)
+            printGivenLevel(node, level);
+    }
+
+    // print the node in a given level
+    public static void printGivenLevel(Node root, int level){
+        // if the tree is null, return
+        if(root==null)
+            return;
+        // if we arrive at that level, print the value out.
+        if(level==1)
+            System.out.println(root.data);
+        else if(level>1){
+            //we print its left child, in order to print it, its level has to decrease
+            //(because we only printing it when level==1)
+            //the more further traversing down, the level is higher to compensate that
+            // for printing the value at level==1
+            printGivenLevel(root.left, level-1);
+            printGivenLevel(root.right, level-1);
+        }
+
+    }
+
 
 
 
