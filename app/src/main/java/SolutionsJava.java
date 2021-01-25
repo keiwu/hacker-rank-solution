@@ -255,6 +255,23 @@ public class SolutionsJava {
         }
     }
 
+    // in order traverse of a binary tree;
+//    1. Traverse the left subtree, i.e., call Inorder(left-subtree)
+//   2. Visit the root.
+//   3. Traverse the right subtree, i.e., call Inorder(right-subtree)
+    public static void inOrder(Node root) {
+        if(root!=null)
+
+            if(root.left!=null)
+                inOrder(root.left);
+
+        System.out.print(root.data + " ");  //visit the root
+
+        if (root.right!=null)
+            inOrder(root.right);
+
+    }
+
 
 
 
