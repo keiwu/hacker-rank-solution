@@ -323,6 +323,80 @@ public class SolutionsJava {
             printGivenLevel(root.right, level-1);
         }
 
+
+
+
+        public static int getLeftHeight(Node root) {
+            // if root is null, the height is 0
+            if (root==null)
+                return 0;
+
+            // initialize left and right subtree height to 0;
+            int leftTreeHeight=0;
+
+            // if left subtree is not null, we have one more level plus the height of
+            // its subtree
+            if (root.left!=null)
+                leftTreeHeight = getLeftHeight(root.left)+1;
+
+
+            return leftTreeHeight;
+        }
+
+        public static int getRightHeight(Node root) {
+            // if root is null, the height is 0
+            if (root==null)
+                return 0;
+
+            // initialize left and right subtree height to 0;
+            int rightTreeHeight=0;
+
+            // if left subtree is not null, we have one more level plus the height of
+            // its subtree
+            if (root.right!=null)
+                rightTreeHeight = getRightHeight(root.right)+1;
+
+
+            return rightTreeHeight;
+        }
+
+        public static void traverseRightTree(Node root){
+            while(root!=null){
+                System.out.print(root.data + " ");
+                if (root.right!=null){
+                    root=root.right;
+                } else
+                    break;
+            }
+        }
+
+        public static void traverseLeftTree(Node root){
+            while(root!=null){
+                System.out.print(root.data + " ");
+                if (root.left!=null){
+                    root=root.left;
+                } else
+                    break;
+            }
+        }
+
+        // Given a pointer to the root of a binary tree, print the top view of the binary tree.
+        //
+        //The tree as seen from the top the nodes, is called the top view of the tree.
+        public static void topView(Node root) {
+            // get the height of the straight left tree
+            int leftHeight=getLeftHeight(root);
+
+            // get the height of the straight right tree
+            int rightHeight=getRightHeight(root);
+
+            // if rightHeight is longer, print the right tree
+            if (leftHeight<rightHeight){
+                traverseRightTree(root);
+            } else
+                traverseLeftTree(root); // if leftHeight is longer, print the left tree
+        }
+
     }
 
 
