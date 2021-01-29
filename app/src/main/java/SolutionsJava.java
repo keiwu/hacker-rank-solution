@@ -402,7 +402,42 @@ public class SolutionsJava {
 
 
 
+    // this is actually building a full binary tree;
+    // all the data are inserted one node at a time
+    public static Node insert(Node root,int data) {
+        Node current = root;
+        Node newNode = new Node(data);
 
+        //
+        if(current==null){
+            root=newNode;
+            return root;
+        }
+
+        while(current!=null){
+
+            // put the data on the left side of the tree
+            if(current.data>data){
+                // insert the node here
+                if(current.left==null){
+                    current.left=newNode;
+                    break;
+                }
+
+                // update the new current and continue the while loop
+                current=current.left;
+            }else{
+                if(current.right==null){
+                    current.right=newNode;
+                    break;
+                }
+
+                current=current.right;
+            }
+        }
+
+        return root;
+    }
 
 
 
