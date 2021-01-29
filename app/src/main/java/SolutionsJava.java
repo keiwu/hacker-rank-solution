@@ -440,6 +440,32 @@ public class SolutionsJava {
     }
 
 
+    // Binary search tree: Lowest Common Ancestor
+    public static Node lca(Node root, int v1, int v2) {
+        // set the root to the current common parent
+        Node currentParent=root;
+
+        while(root!=null){
+            //if both v1 and v2 are on the left of the root,
+            // we set root.left as the current common parent
+            if(root.data>v1 && root.data>v2){
+                currentParent=root.left;
+                root=root.left;
+                // if both v1 and v2 are on the right of the root,
+                // we set root.right as the current common parent
+            }else if (root.data<v1 && root.data<v2){
+                currentParent=root.right;
+                root=root.right;
+                // if v1 and v2 is not on the same side, we stop there because
+                // the common parent is found
+            } else
+                break;
+        }
+
+        return currentParent;
+    }
+
+
 
 
 
