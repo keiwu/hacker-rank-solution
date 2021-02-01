@@ -1,3 +1,6 @@
+import java.util.Scanner;
+import java.util.Stack;
+
 public class SolutionsJava {
 
     class SinglyLinkedListNode {
@@ -464,6 +467,68 @@ public class SolutionsJava {
 
         return currentParent;
     }
+
+
+    //Using Stack to keep track of the maximum element in the stack while adding and deleting nodes.
+    public class Solution {
+        private static class StackNode{
+            int val;
+            int curMax;
+
+            public StackNode(int val, int curMax){
+                this.val = val;
+                this.curMax = curMax;
+            }
+        }
+
+
+        public static void main(String[] args) {
+            /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+
+            Scanner sc = new Scanner(System.in);
+            // there are n queryies
+            int n = sc.nextInt();
+            int max = Integer.MIN_VALUE;
+
+            Stack<StackNode> stack = new Stack<StackNode>();
+
+            while (n > 0) {
+                int choice = sc.nextInt();
+
+                switch(choice){
+                    // adding a node to the top of stack.  Also storing the max at that node
+                    case 1:
+                        int val = sc.nextInt();
+                        max = Math.max(val, max);
+                        stack.push(new StackNode(val, max));
+                        break;
+
+                     // reset the max depending if the stack is empty or not.
+                    //  If not empty, get the max from the current node by using peek.
+                    case 2:
+                        if(!stack.isEmpty())
+                            stack.pop();
+
+                        // reset max
+                        if(stack.isEmpty()){
+                            max = Integer.MIN_VALUE;
+                        } else
+                            max = stack.peek().curMax;
+
+                        break;
+
+                    // Print the stack's current max value
+                    case 3:
+                        System.out.println(stack.peek().curMax);
+                        break;
+
+
+                }
+
+                n--;
+            }
+            sc.close();
+        }
 
 
 
