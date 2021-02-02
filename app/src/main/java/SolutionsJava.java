@@ -1,3 +1,4 @@
+import java.util.PriorityQueue;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -528,6 +529,44 @@ public class SolutionsJava {
                 n--;
             }
             sc.close();
+        }
+
+
+        /*
+         * Complete the cookies function below.
+         *   Given k you need to have elements greater than k
+            if a element is less than k perform :
+            ( Least no+2* 2nd least number).
+            *
+            * Idea is to use min heap (priority Queque), and keep calculate the top two values until greater than k.
+         */
+        static int cookies(int k, int[] A) {
+            /*
+             * Write your code here.
+             */
+
+            PriorityQueue<Integer> pq = new PriorityQueue<Integer>();
+            int arrSize=A.length;
+
+            for (int i=0; i<arrSize; i++){
+                pq.add(A[i]);
+            }
+
+            int count=0;
+            while(pq.size() > 1 && pq.peek() < k){
+                int smallest = pq.poll();
+                int second = pq.poll();
+
+                int newVal = smallest + 2*second;
+                pq.add(newVal);
+                count++;
+            }
+
+            if (pq.peek() < k){
+                return -1;
+            }
+
+            return count;
         }
 
 
