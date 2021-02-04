@@ -1,4 +1,4 @@
-import java.util.PriorityQueue;
+ycimport java.util.PriorityQueue;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -570,9 +570,103 @@ public class SolutionsJava {
         }
 
 
+        /*
+         * Complete the 'equalStacks' function below.
+         *
+         * The function is expected to return an INTEGER.
+         * The function accepts following parameters:
+         *  1. INTEGER_ARRAY h1
+         *  2. INTEGER_ARRAY h2
+         *  3. INTEGER_ARRAY h3
+         */
+
+        public static int equalStacks(List<Integer> h1, List<Integer> h2, List<Integer> h3) {
+            // Write your code here
+
+            //Declare stacks
+            Stack<Integer> s1= new Stack<Integer>();
+            Stack<Integer> s2= new Stack<Integer>();
+            Stack<Integer> s3= new Stack<Integer>();
+
+            // calculate the sum in each list and assign values in list of reverse
+            // to stack
+            int sumS1 = 0;
+            for (int i=h1.size()-1; i>=0; i--){
+                s1.push(h1.get(i));
+                sumS1 = sumS1 + h1.get(i);
+            }
+
+            int sumS2 = 0;
+            for (int i=h2.size()-1; i>=0; i--){
+                s2.push(h2.get(i));
+                sumS2 = sumS2 + h2.get(i);
+            }
+
+            int sumS3 = 0;
+            for (int i=h3.size()-1; i>=0; i--){
+                s3.push(h3.get(i));
+                sumS3 = sumS3 + h3.get(i);
+            }
+
+            // get the min height of the stacks
+            int min = Math.min(Math.min(sumS1, sumS2), sumS3);
+
+            // set all the stack flags to false
+            boolean s1Flag=false;
+            boolean s2Flag=false;
+            boolean s3Flag=false;
+
+            // if the height is larger than min, we take away the top element of the stack.
+            // and then calculate the new min if it is smaller than the min.
+            // if the height is the same as min, we set the flag to true.
+            // when all the flags are set to true, meaning the heights of the stacks are same
+            while(true){
+                if (sumS1 > min){
+                    s1Flag=false;
+                    int val = s1.pop();
+                    sumS1=sumS1-val;
+                    if (sumS1 < min)
+                        min=sumS1;
+                } else if (sumS1== min){
+                    s1Flag=true;
+                }
+
+                if (sumS2 > min){
+                    s2Flag=false;
+                    int val = s2.pop();
+                    sumS2=sumS2-val;
+                    if (sumS2 < min)
+                        min=sumS2;
+                } else if (sumS2== min){
+                    s2Flag=true;
+                }
+
+                if (sumS3 > min){
+                    s3Flag=false;
+                    int val = s3.pop();
+                    sumS3=sumS3-val;
+                    if (sumS3 < min)
+                        min=sumS3;
+                } else if (sumS3== min){
+                    s3Flag=true;
+                }
+
+                if (s1Flag && s2Flag && s3Flag)
+                    break;
+
+            }
+
+
+
+
+            return min;
+
+        }
 
 
 
 
 
-}
+
+
+    }
