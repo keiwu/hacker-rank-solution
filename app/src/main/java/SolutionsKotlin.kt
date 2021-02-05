@@ -1,3 +1,28 @@
+// Complete the matchingStrings function below.
+fun matchingStrings(strings: Array<String>, queries: Array<String>): Array<Int> {
+
+    var i2=0;
+    var arr = arrayListOf<Int>()
+    for(i in 0 until queries.size){
+        for(j in 0 until strings.size){
+            if (queries[i]==strings[j]){
+                i2++
+
+
+            }
+        }
+
+        arr.add(i2)
+        i2=0
+    }
+
+
+
+    return arr.toTypedArray()
+
+}
+
+
 class DoublyLinkedListNode(var data: Int) {
     var next: DoublyLinkedListNode? = null
     var prev: DoublyLinkedListNode? = null
