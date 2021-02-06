@@ -1,6 +1,9 @@
-ycimport java.util.PriorityQueue;
+import java.util.PriorityQueue;
 import java.util.Scanner;
 import java.util.Stack;
+
+
+
 
 public class SolutionsJava {
 
@@ -34,6 +37,46 @@ public class SolutionsJava {
 
         return head;
 
+    }
+
+    // Complete the hasCycle function below.
+
+    /*
+     * For your reference:
+     *
+     * SinglyLinkedListNode {
+     *     int data;
+     *     SinglyLinkedListNode next;
+     * }
+     *
+     */
+    static boolean hasCycle(SinglyLinkedListNode head) {
+        SinglyLinkedListNode slowPtr=head;
+        SinglyLinkedListNode fastPtr=head;
+
+        //loop until fastPtr reach the end of the linked list
+        while(fastPtr!=null){
+
+            // advance slowPtr to the next node or else break;
+            if (slowPtr.next!=null)
+                slowPtr=slowPtr.next;
+            else
+                break;
+
+            // advance fastPtr to the next node or else break;
+            if(fastPtr.next!=null&&fastPtr.next.next!=null){
+                fastPtr=fastPtr.next.next;
+            } else
+                break;
+
+            // if fastPtr meet with slowPtr again, there is a loop
+            if(slowPtr==fastPtr)
+                return true;
+
+        }
+
+        // return false when reaching the end of the linkedlist
+        return false;
     }
 
     // my version of remove duplicates;
