@@ -39,6 +39,53 @@ public class SolutionsJava {
 
     }
 
+
+    //Huffman decoding
+
+    /*
+	class Node
+		public  int frequency; // the frequency of this tree
+    	public  char data;
+    	public  Node left, right;
+
+*/
+
+    void decode(String s, Node root) {
+        Node current = root;
+
+        //iterate the input code.
+        // for each code, we traverse the tree from node and fetching the
+        // correct letter.  Advance the index accordingly while traverse the tree.
+        for (int i=0; i<s.length(); i++){
+            while(current!=null){
+                //check if a char is null
+                if (s.charAt(i)=='0'){
+                    if(current.left.data=='\0'){
+                        i++;
+                        current=current.left;
+                    } else{
+                        System.out.print(current.left.data);
+                        current=root;
+                        break;
+                    }
+                } else {
+                    if (current.right.data=='\0'){
+                        i++;
+                        current=current.right;
+                    } else{
+                        System.out.print(current.right.data);
+                        current=root;
+                        break;
+                    }
+                }
+            }
+
+        }
+
+
+
+    }
+
     // Complete the hasCycle function below.
 
     /*
