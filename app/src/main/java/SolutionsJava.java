@@ -354,15 +354,16 @@ public class SolutionsJava {
 //   2. Visit the root.
 //   3. Traverse the right subtree, i.e., call Inorder(right-subtree)
     public static void inOrder(Node root) {
-        if(root!=null)
+        if(root!=null){
 
             if(root.left!=null)
                 inOrder(root.left);
 
-        System.out.print(root.data + " ");  //visit the root
+            System.out.print(root.data + " ");  //visit the root
 
-        if (root.right!=null)
-            inOrder(root.right);
+            if (root.right!=null)
+                inOrder(root.right);
+        }
 
     }
 
