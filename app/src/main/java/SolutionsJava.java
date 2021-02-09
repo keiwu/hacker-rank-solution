@@ -39,6 +39,49 @@ public class SolutionsJava {
 
     }
 
+    // Purpose: construct a complete binary tree
+    // arr: integer array holding the data values to be inserted to the tree
+    // root; root node
+    // i: ith index in the array
+    public Node insertLevelOrder(int[] arr, Node root, int i){
+        if (i<arr.length){
+            Node temp=new Node(arr[i]);
+            root = temp;
+
+            //insert to the left child, left child is 2*i + 1 since we start
+            //with index 0;
+            insertLevelOrder(arr, root.left, 2*i+1);
+
+            //insert to the right child, right child is 2*i + 2
+            insertLevelOrder(arr, root.right, 2*i+2);
+        }
+
+        return root;
+
+
+    }
+
+
+    // Function to print tree nodes in InOrder fashion
+    public void inOrder(Node root)
+    {
+        if (root != null) {
+            inOrder(root.left);
+            System.out.print(root.data + " ");
+            inOrder(root.right);
+        }
+    }
+
+    // Driver program to test above function
+    public static void main(String args[])
+    {
+        Tree t2 = new Tree();
+        int arr[] = { 1, 2, 3, 4, 5, 6, 6, 6, 6 };
+        t2.root = t2.insertLevelOrder(arr, t2.root, 0);
+        t2.inOrder(t2.root);
+    }
+
+
 
     //Huffman decoding
 
@@ -753,6 +796,10 @@ public class SolutionsJava {
             return min;
 
         }
+
+
+
+
 
 
 
