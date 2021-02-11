@@ -50,10 +50,10 @@ public class SolutionsJava {
 
             //insert to the left child, left child is 2*i + 1 since we start
             //with index 0;
-            insertLevelOrder(arr, root.left, 2*i+1);
+            root.left = insertLevelOrder(arr, root.left, 2*i+1);
 
             //insert to the right child, right child is 2*i + 2
-            insertLevelOrder(arr, root.right, 2*i+2);
+            root.right = insertLevelOrder(arr, root.right, 2*i+2);
         }
 
         return root;
