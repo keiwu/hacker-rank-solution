@@ -42,6 +42,38 @@ public class SolutionsJava {
     }
 
 
+    // check binary tree
+    static boolean checkBST(Node root) {
+        //continue the loop if root is not null
+        //if root.left is not null, and root.left.data < root.data,
+        //call checkBST recursively.
+        // if root.left.data > root.data, return false
+        // Similar idea for the right child of root.
+        // make sure to break out the while loop when the sub tree are checked.
+        // After the checking of the whole tree and still not false returned,
+        // we can return true indicating it is a binary tree.
+        while (root!=null){
+            if (root.left!=null){
+                if(root.left.data>root.data)
+                    return false;
+                else
+                    checkBST(root.left);
+            }
+
+            if (root.right!=null){
+                if(root.right.data<root.data)
+                    return false;
+                else
+                    checkBST(root.right);
+            }
+
+            break;
+
+        }
+
+        return true;
+    }
+
 
 
     static class Node {
