@@ -14,6 +14,8 @@ public class SolutionsJava {
     }
 
 
+
+
     // Java version of remove duplicates; after convert to Kotlin it doesn't work
     static SinglyLinkedListNode removeDuplicates(SinglyLinkedListNode head) {
         /*Another reference to head*/
@@ -37,6 +39,96 @@ public class SolutionsJava {
 
         return head;
 
+    }
+
+
+
+
+    static class Node {
+        Node left;
+        Node right;
+        int data;
+
+        Node(int data) {
+            this.data = data;
+            left = null;
+            right = null;
+        }
+    }
+    /*
+     * Complete the swapNodes function below.
+     */
+    static int[][] swapNodes(int[][] indexes, int[] queries) {
+        /*
+         * Write your code here.
+         */
+
+        int items=0;
+        for (int i=0; i<indexes.length; i++){
+            for (int j=0; j<indexes[i].length; j++){
+                System.out.println(indexes[i][j] + " i " + i + " j " + j);
+                items++;
+            }
+        }
+
+        int[] index1D = new int[items+1];
+
+
+        index1D[0] = 1;
+        int idx = 1;
+
+        for (int i=0; i<indexes.length; i++){
+            for (int j=0; j<indexes[i].length; j++){
+                index1D[idx] = indexes[i][j];
+                idx++;
+            }
+        }
+
+        for (int i=0; i<index1D.length; i++){
+            System.out.print(index1D[i] + " ");
+        }
+
+        Node root=null;
+
+        root = insertLevelOrder(index1D, root, 0);
+
+        inOrder(root);
+
+        //  for (int i=0; i<queries.length; i++){
+        //      System.out.println(queries[i] + "******");
+        //  }
+
+        return indexes;
+
+    }
+
+    static int dis = 0;
+    static public Node insertLevelOrder(int[] arr, Node root, int i){
+        if (i<arr.length){
+            Node temp=new Node(arr[i]);
+            root = temp;
+
+            System.out.println("construct tree node " + root.data);
+            //insert to the left child, left child is 2*i + 1 since we start
+            //with index 0;
+            root.left=insertLevelOrder(arr, root.left, 2*i+1);
+
+            //insert to the right child, right child is 2*i + 2
+            root.right=insertLevelOrder(arr, root.right, 2*i+2);
+        }
+
+        return root;
+
+
+    }
+
+    static public void inOrder(Node root)
+    {
+        if (root != null) {
+            inOrder(root.left);
+            System.out.print(root.data + "*");
+            inOrder(root.right);
+        }
     }
 
     // Purpose: construct a complete binary tree
