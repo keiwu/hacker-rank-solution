@@ -41,6 +41,38 @@ public class SolutionsJava {
 
     }
 
+    // AVL binary tree balanced height.
+    // if return value is -1, the tree is not balanced.
+    // other value means the tree is balanced.
+    static int balanceHeight(Node root){
+        if (root==null)
+            return 0;
+
+        int leftTreeHeight=balanceHeight(root.left);
+        //if left subtree is not balanced, the whole tree is not balanced
+        //-1 meaning not balanced.
+        if (leftTreeHeight==-1)
+            return -1;
+
+        int rightTreeHeight=balanceHeight(root.right);
+        //if right subtree is not balanced, the whole tree is not balanced
+        if (rightTreeHeight==-1)
+            return -1;
+
+        // for a AVL binary tree, the balance factor is 1
+        // if the left tree and right tree height is different more than 1,
+        // the tree is not balanced.
+        // change the balance factor to 0 make it checking a full balance tree
+        // instead of AVL balance tree
+        if (Math.abs(leftTreeHeight-rightTreeHeight) > 1)
+            return -1;
+
+        //return the max of the two sub trees plus 1.
+        int height = Math.max(leftTreeHeight,rightTreeHeight)+1;
+        System.out.println(root.val + " " + height + "*");
+        return (Math.max(leftTreeHeight,rightTreeHeight)+1);
+    }
+
 
     // check binary tree
     static boolean checkBST(Node root) {
