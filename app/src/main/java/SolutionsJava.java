@@ -13,6 +13,146 @@ public class SolutionsJava {
 
     }
 
+    	/* Class node is defined as :
+    class Node
+    	int val;	//Value
+    	int ht;		//Height
+    	Node left;	//Left child
+    	Node right;	//Right child
+
+	*/
+
+    static int height(Node N) {
+        if (N == null)
+            return 0;
+
+        return N.ht;
+    }
+
+    static int max(int a, int b) {
+        return (a > b) ? a : b;
+    }
+
+    // A utility function to right rotate subtree rooted with y
+    // See the diagram given above.
+    static Node rightRotate(Node y) {
+        Node x = y.left;
+        Node T2 = x.right;
+
+        // Perform rotation
+        x.right = y;
+        y.left = T2;
+
+        // Update heights
+        y.ht = max(height(y.left), height(y.right)) + 1;
+        x.ht = max(height(x.left), height(x.right)) + 1;
+
+        // Return new root
+        return x;
+    }
+
+    // A utility function to left rotate subtree rooted with x
+    // See the diagram given above.
+    static Node leftRotate(Node x) {
+        Node y = x.right;
+        Node T2 = y.left;
+
+        // Perform rotation
+        y.left = x;
+        x.right = T2;
+
+        // Update heights
+        x.ht = max(height(x.left), height(x.right)) + 1;
+        y.ht = max(height(y.left), height(y.right)) + 1;
+
+        // Return new root
+        return y;
+    }
+
+    // Get Balance factor of node N
+    static int getBalance(Node N) {
+        if (N == null)
+            return 0;
+
+        return height(N.left) - height(N.right);
+    }
+
+    // A utility function to print preorder traversal
+    // of the tree.
+    // The function also prints height of every node
+    static void preOrder(Node node) {
+        if (node != null) {
+            System.out.println(node.val + " " + node.ht);
+            preOrder(node.left);
+            preOrder(node.right);
+        }
+    }
+
+    static Node myInsert(Node node, int key){
+        /* 1. Perform the normal BST insertion */
+        if (node == null){
+            Node newNode = new Node();
+            newNode.val=key;
+            newNode.ht = 0;
+            return newNode;
+        }
+
+        if (key < node.val)
+            node.left = myInsert(node.left, key);
+        else if (key > node.val)
+            node.right = myInsert(node.right, key);
+        else // Duplicate keys not allowed
+            return node;
+
+        /* 2. Update height of this ancestor node */
+        node.ht = 1 + max(height(node.left),
+                height(node.right));
+
+                /* 3. Get the balance factor of this ancestor
+            node to check whether this node became
+            unbalanced */
+        int balance = getBalance(node);
+        int positiveFactor=1;
+        int negativeFactor=-1;
+        // If this node becomes unbalanced, then there
+        // are 4 cases Left Left Case
+        if (balance > positiveFactor && key < node.left.val)
+            return rightRotate(node);
+
+        // Right Right Case
+        if (balance < negativeFactor && key > node.right.val)
+            return leftRotate(node);
+
+        // Left Right Case
+        if (balance > positiveFactor && key > node.left.val) {
+            node.left = leftRotate(node.left);
+            return rightRotate(node);
+        }
+
+        // Right Left Case
+        if (balance < negativeFactor && key < node.right.val) {
+            node.right = rightRotate(node.right);
+            return leftRotate(node);
+        }
+
+        return node;
+    }
+
+
+
+    static Node insert(Node root,int val)
+    {
+        //preOrder(root);
+
+        //System.out.println("**********************************");
+
+        root = myInsert(root, val);
+
+        //preOrder(root);
+
+        return root;
+    }
+
 
 
 
