@@ -3,6 +3,66 @@ import java.util.Scanner;
 import java.util.Stack;
 
 
+// implementing a queue data structure using two stacks.
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+
+        Stack<Integer> stack = new Stack<Integer>();
+        Stack<Integer> stackReverse = new Stack<Integer>();
+        Scanner sc = new Scanner(System.in);
+        // there are n queryies
+        int n = sc.nextInt();
+        int choice;
+
+        boolean stackReversed = false;
+
+        while (n > 0) {
+            choice = sc.nextInt();
+
+            switch(choice){
+                //case 1: just adding the val to the top of the original stack
+                case 1:
+                    int val = sc.nextInt();
+                    stack.push(val);
+
+                    break;
+
+                //case 2:  we only reverse the original stack and assign to                              // stackReverse when we stackReverse is empty.
+                // This greatly increase efficiency and solved the time out problem
+                case 2:
+                    if(stackReverse.empty())
+                        stackReverse = reverseStack(stack);
+
+                    stackReverse.pop();
+                    break;
+
+                // case 3 is the same as case 2, only need to reverseStack when empty
+                case 3:
+                    if (stackReverse.empty())
+                        stackReverse = reverseStack(stack);
+
+                    System.out.println(stackReverse.peek());
+                    break;
+            }
+            n--;
+        }
+
+
+    }
+
+
+    public static Stack<Integer> reverseStack(Stack<Integer> stack){
+        Stack<Integer> stackReverse = new Stack<Integer>();
+        while (!stack.empty()){
+            stackReverse.push(stack.pop());
+        }
+
+        return stackReverse;
+    }
+}
+
 
 
 public class SolutionsJava {
