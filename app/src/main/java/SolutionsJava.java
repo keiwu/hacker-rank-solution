@@ -3,7 +3,93 @@ import java.util.Scanner;
 import java.util.Stack;
 
 
-// implementing a queue data structure using two stacks.
+
+import java.io.*;
+import java.util.*;
+
+//Create a MyQueue class to wrap the two stacks.
+// First time implementing it as wrapper.
+// Code is cleaner and reusability
+public class Solution {
+
+    public static class MyQueue<Integer>{
+        Stack<Integer> stack = new Stack<Integer>();
+        Stack<Integer> stackReverse = new Stack<Integer>();
+
+        public void enque(Integer number){
+            stack.push(number);
+        }
+
+        public Integer deque(){
+            if (queueSize()==0)
+                return null;
+
+            if(stackReverse.empty())
+                reverseStack();
+
+            return stackReverse.pop();
+        }
+
+        public Integer peek(){
+            if (queueSize()==0)
+                return null;
+
+            if (stackReverse.empty())
+                reverseStack();
+
+            return stackReverse.peek();
+        }
+
+        public int queueSize(){
+            return stack.size() + stackReverse.size();
+        }
+
+        public void reverseStack(){
+
+            while (!stack.empty()){
+                stackReverse.push(stack.pop());
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        MyQueue<Integer> queue = new MyQueue<Integer>();
+        Scanner sc = new Scanner(System.in);
+        // there are n queryies
+        int n = sc.nextInt();
+        int choice;
+
+        while (n > 0) {
+            choice = sc.nextInt();
+
+            switch(choice){
+                //case 1: just adding the val to the top of the original stack
+                case 1:
+                    int val = sc.nextInt();
+                    queue.enque(val);
+
+                    break;
+
+                //case 2:  we only reverse the original stack and assign to                              // stackReverse when we stackReverse is empty.
+                // This greatly increase efficiency and solved the time out problem
+                case 2:
+                    queue.deque();
+                    break;
+
+                // case 3 is the same as case 2, only need to reverseStack when empty
+                case 3:
+                    System.out.println(queue.peek());
+                    break;
+            }
+            n--;
+        }
+
+
+    }
+
+
+
+    // implementing a queue data structure using two stacks.
 public class Solution {
 
     public static void main(String[] args) {
