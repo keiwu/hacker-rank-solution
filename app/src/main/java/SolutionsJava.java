@@ -7,6 +7,105 @@ import java.util.Stack;
 import java.io.*;
 import java.util.*;
 
+
+lass Result {
+
+static class Graph
+{
+    // A user define class to represent a graph.
+    // A graph is an array of adjacency lists.
+    // Size of array will be V (number of vertices
+    // in graph)
+    int V;
+    ArrayList<ArrayList<Integer> > adjListArray;
+
+    // constructor
+    Graph(int V)
+    {
+        this.V = V;
+        // define the size of array as
+        // number of vertices
+        adjListArray = new ArrayList<>();
+
+        // Create a new list for each vertex
+        // such that adjacent nodes can be stored
+
+        for (int i = 0; i < V; i++) {
+            adjListArray.add(i, new ArrayList<>());
+        }
+    }
+
+    // Adds an edge to an undirected graph
+    void addEdge(int src, int dest)
+    {
+        // Add an edge from src to dest.
+        adjListArray.get(src).add(dest);
+
+        // Since graph is undirected, add an edge from dest
+        // to src also
+        adjListArray.get(dest).add(src);
+    }
+
+    void DFSUtil(int v, boolean[] visited)
+    {
+        // Mark the current node as visited and print it
+        visited[v] = true;
+        System.out.print(v + " ");
+        // Recur for all the vertices
+        // adjacent to this vertex
+        for (int x : adjListArray.get(v)) {
+            if (!visited[x])
+                DFSUtil(x, visited);
+        }
+    }
+    void connectedComponents()
+    {
+        // Mark all the vertices as not visited
+        boolean[] visited = new boolean[V];
+        for (int v = 0; v < V; ++v) {
+            if (!visited[v]) {
+                // print all reachable vertices
+                // from v
+                DFSUtil(v, visited);
+                System.out.println();
+            }
+        }
+    }
+}
+
+    /*
+     * Complete the 'componentsInGraph' function below.
+     *
+     * The function is expected to return an INTEGER_ARRAY.
+     * The function accepts 2D_INTEGER_ARRAY gb as parameter.
+     */
+
+    public static List<Integer> componentsInGraph(List<List<Integer>> gb) {
+        int totalVerticies = gb.size() * 2;
+        Graph g = new Graph(totalVerticies);
+
+        for (int i=0; i<gb.size(); i++){
+            g.addEdge(gb.get(i).get(0), gb.get(i).get(1));
+        }
+
+        g.connectedComponents();
+
+
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
+
+        List<Integer> result = new ArrayList<Integer>();
+        result.add(min);
+        result.add(max);
+
+        return result;
+
+    }
+
+}
+
+
+
 //Create a MyQueue class to wrap the two stacks.
 // First time implementing it as wrapper.
 // Code is cleaner and reusability
