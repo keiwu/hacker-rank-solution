@@ -8,7 +8,126 @@ import java.io.*;
 import java.util.*;
 
 
-lass Result {
+class Result {
+
+    static class Graph
+    {
+        // A user define class to represent a graph.
+        // A graph is an array of adjacency lists.
+        // Size of array will be V (number of vertices
+        // in graph)
+        int V;
+        ArrayList<ArrayList<Integer> > adjListArray;
+
+        // constructor
+        Graph(int V)
+        {
+            this.V = V;
+            // define the size of array as
+            // number of vertices
+            adjListArray = new ArrayList<>(V);
+
+            // Create a new list for each vertex
+            // such that adjacent nodes can be stored
+            System.out.println("V " + V);
+            for (int i = 0; i < V; i++) {
+                adjListArray.add(i, new ArrayList<>());
+            }
+        }
+
+        // Adds an edge to an undirected graph
+        void addEdge(int src, int dest)
+        {
+            // Add an edge from src to dest.
+            adjListArray.get(src).add(dest);
+
+            // Since graph is undirected, add an edge from dest
+            // to src also
+            adjListArray.get(dest).add(src);
+        }
+
+        int DFSUtil(int v, boolean[] visited)
+        {
+            // Mark the current node as visited and print it
+            visited[v] = true;
+            System.out.print(v + " ");
+            // Recur for all the vertices
+            // adjacent to this vertex
+            int connected = 1;
+            for (int x : adjListArray.get(v)) {
+                if (!visited[x])
+                    connected = connected+ DFSUtil(x, visited);
+            }
+
+            return connected;
+        }
+
+        List<Integer> connectedComponents()
+        {
+            // Mark all the vertices as not visited
+            boolean[] visited = new boolean[V];
+            List<Integer> result = new ArrayList<Integer>();
+
+            for (int v = 0; v < V; v++) {
+                if (!visited[v]) {
+                    // print all reachable vertices
+                    // from v
+                    int nodesConnected = DFSUtil(v, visited);
+                    System.out.println();
+                    result.add(nodesConnected);
+                }
+            }
+
+            return result;
+        }
+    }
+
+    /*
+     * Complete the 'componentsInGraph' function below.
+     *
+     * The function is expected to return an INTEGER_ARRAY.
+     * The function accepts 2D_INTEGER_ARRAY gb as parameter.
+     */
+
+    public static List<Integer> componentsInGraph(List<List<Integer>> gb) {
+        // set the number of vertices to number of test cases * 2  + 1
+        // each test case has src and destination, that's why * 2.
+        // plus 1 because we are begining at 0
+        int totalVerticies = gb.size() * 2 + 1;
+        Graph g = new Graph(totalVerticies);
+
+        // add all the edges to graph
+        for (int i=0; i<gb.size(); i++){
+            g.addEdge(gb.get(i).get(0), gb.get(i).get(1));
+        }
+
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
+
+        List<Integer> result = new ArrayList<Integer>();
+        // result contains the number of all connected vertices
+        result = g.connectedComponents();
+
+        // filter out the max connected vertices and min connected nodes (1 is      exlcuded)
+        for (int i=0; i<result.size(); i++){
+            if(result.get(i)>max)
+                max=result.get(i);
+
+            if (result.get(i)<min&&result.get(i)!=1)
+                min=result.get(i);
+        }
+        result.clear();
+        result.add(min);
+        result.add(max);
+
+        return result;
+
+    }
+
+
+
+}
+
 
 static class Graph
 {
