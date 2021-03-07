@@ -8,6 +8,26 @@ import java.io.*;
 import java.util.*;
 
 
+
+// Complete the isBalanced function below.[({})] is a balanced string
+static String isBalanced(String s) {
+        int n=-1;
+
+        while (s.length()!=n){
+        n=s.length();
+        s=s.replace("[]", "");
+        s=s.replace("{}", "");
+        s=s.replace("()", "");
+        }
+
+        if (s.length()==0)
+        return "YES";
+        else
+        return "NO";
+
+
+        }
+
 class Result {
 
     static class Graph
