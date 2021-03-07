@@ -7,6 +7,38 @@ import java.util.Stack;
 import java.io.*;
 import java.util.*;
 
+// Balance brackets using stack
+// Complete the isBalanced function below.[({})] is a balanced string
+static String isBalanced(String s) {
+        Stack<Character> stack = new Stack<Character>();
+        for (int i=0; i<s.length(); i++){
+        if (s.charAt(i)=='{' || s.charAt(i)=='[' || s.charAt(i)=='('){
+        stack.push(s.charAt(i));
+        } else if (s.charAt(i)=='}'){
+        if (stack.isEmpty())
+        return "NO";
+        if(stack.pop()!='{')
+        return "NO";
+        } else if (s.charAt(i)==']'){
+        if (stack.isEmpty())
+        return "NO";
+        if(stack.pop()!='[')
+        return "NO";
+        } else if (s.charAt(i)==')'){
+        if (stack.isEmpty())
+        return "NO";
+        if(stack.pop()!='(')
+        return "NO";
+        }
+        }
+
+        if (stack.isEmpty())
+        return "YES";
+        else
+        return "NO";
+
+
+        }
 
 
 // Complete the isBalanced function below.[({})] is a balanced string
