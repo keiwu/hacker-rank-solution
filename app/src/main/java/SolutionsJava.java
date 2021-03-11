@@ -7,6 +7,66 @@ import java.util.Stack;
 import java.io.*;
 import java.util.*;
 
+
+// Complete the minimumMoves function below.
+// castle on the grid
+static int minimumMoves(String[] grid, int startX, int startY, int goalX, int goalY)    {
+        if (startX==goalX && startY==goalY)
+        return 0;
+
+        //for going left/top/right/bottom rereferening the current point
+        int[] xOffSet={-1, 0, 1, 0};
+        int[] yOffSet={0, 1, 0, -1};
+        int gridSize = grid.length;
+        char[][] grids = new char[gridSize][gridSize];
+        int[][] moves = new int[gridSize][gridSize];
+
+        for (int i=0; i<grid.length; i++){
+        for(int j=0; j<grid[i].length(); j++){
+        grids[i][j] = grid[i].charAt(j);
+
+        System.out.print(grid[i].charAt(j));
+
+        //initial the moves array to -1, meaning not visited
+        moves[i][j] = -1;
+        }
+
+        System.out.println();
+
+        }
+
+        moves[startX][startY]=0;
+
+        Queue<Point> queue = new LinkedList<>();
+        queue.offer(new Point(startX, startY));
+        while (true){
+        Point head= queue.poll();
+        for(int i=0; i<xOffSet.length; i++){
+        int nextX = head.x;
+        int nextY = head.y;
+        while(isOpen(grids, nextX+xOffSet[i], nextY+yOffSet[i])){
+        nextX+=xOffSet[i];
+        nextY+=yOffSet[i];
+        if (nextX==goalX && nextY==goalY){
+        return moves[head.x][head.y]+1;
+        }
+
+        if (moves[nextX][nextY]<0){
+        moves[nextX][nextY]=moves[head.x][head.y]+1;
+        queue.offer(new Point(nextX, nextY));
+        }
+        }
+        }
+        }
+
+
+        }
+
+public static boolean isOpen(char[][] grid, int x, int y){
+        return x>=0 && x<grid.length && y>=0&&y<grid.length && grid[x][y]=='.';
+        }
+
+
 // Balance brackets using stack
 // Complete the isBalanced function below.[({})] is a balanced string
 static String isBalanced(String s) {
