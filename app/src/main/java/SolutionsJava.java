@@ -1,4 +1,4 @@
-import java.util.PriorityQueue;
+ ,; import java.util.PriorityQueue;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -6,6 +6,50 @@ import java.util.Stack;
 
 import java.io.*;
 import java.util.*;
+
+
+
+// method 1
+// Dynamic programming to reduce n to zero
+ static int downToZero(int n) {
+         if (n<=3)
+         return n;
+
+         int[] dp = new int[n+1];
+         for (int i=0; i<=n; i++){
+         dp[i]=-1;
+         }
+
+         dp[0]=0;
+         dp[1]=1;
+         dp[2]=2;
+         dp[3]=3;
+
+         int sqrt;
+         for (int i=4; i<=n; i++){
+         if(dp[i]>-1)
+         continue;
+
+         int min = Integer.MAX_VALUE;
+         sqrt=(int) Math.sqrt(i);
+
+         while(sqrt>1){
+         if (i%sqrt==0){
+         int factor=i/sqrt;  //N=a*b -> factor is the larger of a or b
+         if(dp[factor]>-1)
+         continue;
+         min=Math.min(min, 1+dp[factor]);
+         }
+         sqrt--;
+         }
+
+         min=Math.min(min, 1+dp[i-1]);
+         dp[i]=min;
+         }
+
+         return dp[n];
+
+         }
 
 
 // Complete the minimumMoves function below.
