@@ -9,6 +9,48 @@ import java.util.*;
 
 
 
+ /*
+  * Complete the downToZero function below.
+  */
+ static int[] minMoves = new int[1000001];
+ static int downToZero(int n) {
+         /*
+          * Write your code here.
+          */
+
+         // basic condition
+         if (n<=3)
+            return n;
+
+         //if already know for n, just return the result without calculating
+         if (minMoves[n]>0)
+            return minMoves[n];
+
+         int min = Integer.MAX_VALUE;
+
+         //flag to avoid stackoverflow
+         // if we are in the option 1 to find the min, then option 2 will not be necessary
+         // It is because option 2 will produce min at n, option 1 is always smaller once
+         // enter the for loop's n%i==0 condition.
+         //option 1 to reduce to zero by keep dividing
+         for (int i=(int) Math.floor(Math.sqrt(n)); i>=2; i--){
+                if (n%i==0){
+                int factor=n/i;
+                min = Math.min(min, 1+downToZero(factor));
+             }
+         }
+
+         //option 2 to reduce to zero by keep subtracting by 1
+         min = Math.min(min, 1+downToZero(n-1));
+
+         // store the result for
+         minMoves[n]=min;
+
+         return min;
+
+         }
+
+
 // method 1
 // Dynamic programming to reduce n to zero
  static int downToZero(int n) {
