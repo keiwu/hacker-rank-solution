@@ -1,3 +1,4 @@
+
  ,; import java.util.PriorityQueue;
 import java.util.Scanner;
 import java.util.Stack;
@@ -7,7 +8,69 @@ import java.util.Stack;
 import java.io.*;
 import java.util.*;
 
+ // This use queue to solve the Down to Zero problem.
+//This is the best of the 3 solutions.  Get 11.2 point.  passed half of the test cases
+// the rest failed due to timeout;  need to optimize the code.
+// The previous 2 solutions only get 8 points.
+ public class Solution {
 
+     static class Pair{
+         int x;  // this refer to n
+         int y;  // this refer to count
+
+         Pair(int x, int y){
+             this.x =x;
+             this.y=y;
+         }
+     }
+
+     /*
+      * Complete the downToZero function below.
+      */
+     static int downToZero(int n) {
+         Set<Integer> memo = new HashSet<Integer>();
+         int count=0;
+         Queue<Pair> queue = new LinkedList<Pair>();
+
+         //HashMap item = new HashMap<Integer, Integer>();
+         //item.put(n, count);
+         queue.add(new Pair(n, count));
+
+         while(!queue.isEmpty()){
+             Pair item = queue.remove();
+             n =item.x;
+             count = item.y;
+
+             //base case
+             if (n<=1){
+                 if (n==1)
+                     count+=1;
+                 break;
+             }
+
+             // decrease by 1
+             if (!memo.contains(n-1)){
+                 memo.add(n-1);
+                 queue.add(new Pair(n-1, count+1));
+             }
+
+             // decrease by max of (a or b where a x b =n)
+             int sqrt=(int) Math.sqrt(n);
+             for (int i=sqrt; i>1; i--){
+                 if (n%i==0){
+                     int factor = n/i;
+                     if(!memo.contains(factor)){
+                         memo.add(factor);
+                         queue.add(new Pair(factor, count+1));
+                     }
+                 }
+             }
+
+
+             System.out.println(item.x + " " + item.y);
+         }
+         return count;
+     }
 
  /*
   * Complete the downToZero function below.
