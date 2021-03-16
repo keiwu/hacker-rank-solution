@@ -8,6 +8,55 @@ import java.util.Stack;
 import java.io.*;
 import java.util.*;
 
+
+/*
+Game of two stacks
+ */
+ /*
+  * Complete the twoStacks function below.
+  */
+ static int twoStacks(int x, int[] a, int[] b) {
+         int lengthB = 0;
+         int sum = 0;
+         // sum all value in the b array until its sum <=x
+         while (lengthB < b.length && sum + b[lengthB] <= x) {
+         sum += b[lengthB];
+         lengthB++;
+         }
+
+         // temporarily set the maxScore to the lengthB
+         int maxScore = lengthB;
+
+         // Add one item at a time from a stack to sum
+         // If sume is bigger than x, keep removing the value of b stack begining
+         // from the bottom of stack.  If after removing all values in b stack and
+         // the sum is still bigger, break out of the loop.  maxScore should be the
+         // length of bStack;
+         // Otherwise, we continue to swap out the element in b stack and add element
+         // in a stack to compute the new maxScore, if any, then update the maxScore.
+         for (int lengthA = 1; lengthA <= a.length; lengthA++) {
+         sum += a[lengthA - 1];
+
+         while (sum > x && lengthB > 0) {
+         lengthB--;
+         sum -= b[lengthB];
+         }
+
+         if (sum > x) {
+         break;
+         }
+
+         maxScore = Math.max(maxScore, lengthA + lengthB);
+         }
+         return maxScore;
+
+
+
+
+
+
+         }
+
  // This use queue to solve the Down to Zero problem.
 //This is the best of the 3 solutions.  Get 11.2 point.  passed half of the test cases
 // the rest failed due to timeout;  need to optimize the code.
