@@ -1,4 +1,4 @@
-
+1
  ,; import java.util.PriorityQueue;
 import java.util.Scanner;
 import java.util.Stack;
@@ -9,6 +9,46 @@ import java.io.*;
 import java.util.*;
 
 
+// Complete the largestRectangle function below.
+static long largestRectangle(int[] a) {
+        int max=0;
+        //for each element in an array, we find the left and right bound of the
+        //element that's occurs first less than the current height a[i].
+        //We compute the area of this rectangle with max and update max area accordingly.
+        //After finishing the loop, return max.
+        for (int i=0; i<a.length; i++){
+        int sum=a[i];
+        //find the left bound of current rectangle i
+        int k=i-1;
+        while(k>=0){
+        if(a[k]>=a[i]){
+        sum=sum+a[i];
+        max=Math.max(max, sum);
+        } else{
+        max=Math.max(max, sum);
+        break;
+        }
+        k--;
+        }
+
+        //find the right bound of current ractangle i
+        k=i+1;
+        while(k<a.length){
+        if(a[k]>=a[i]){
+        sum=sum+a[i];
+        max=Math.max(max, sum);
+        } else{
+        max=Math.max(max, sum);
+        break;
+        }
+        k++;
+        }
+        }
+
+        return max;
+
+
+        }
 /*
 Game of two stacks
  */
