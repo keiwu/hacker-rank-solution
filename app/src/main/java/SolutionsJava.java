@@ -8,6 +8,87 @@ import java.util.Stack;
 import java.io.*;
 import java.util.*;
 
+
+// This is a problem to find the prime numbers and use the prime number to
+// do calculation.  The second part is test your queue techniques.
+//  Which is very straight forward.
+static int[] waiter(int[] number, int q) {
+        /*
+         * Write your code here.
+         */
+        Stack<Integer> s= new Stack<Integer>();
+        Stack<Integer> b= new Stack<Integer>();
+        Stack<Integer> a= new Stack<Integer>();
+
+        for (int i=0; i<number.length; i++){
+        s.push(number[i]);
+        }
+
+        boolean isPrime = true;
+        List arrList = new ArrayList<Integer>();
+        //add the first 2 prime numbers to the list
+        arrList.add(2);
+        arrList.add(3);
+
+        //10000 will generate 1229 prime numbers;  Since the upper bound is 1200, we are good
+        for (int i=4; i<=10000; i++){
+        for (int j=2; j<=(int) Math.sqrt(i); j++){
+        if (i%j==0 && i!=j){
+        isPrime=false;
+        break;
+        }
+        }
+        if (isPrime){
+        arrList.add(i);
+        }
+        isPrime=true;
+        }
+
+        System.out.println(arrList.size());
+
+        int[] arr = new int[arrList.size()];
+        for(int i = 0; i < arrList.size(); i++) {
+        arr[i] = Integer.parseInt(arrList.get(i).toString());
+        }
+
+        Stack<Integer> temp = new Stack<Integer>();
+        ArrayList<Integer> ansList = new ArrayList<Integer>();
+        for (int j=0; j<q; j++){
+        while(!s.empty()){
+        Integer top=s.pop();
+        if (top % arr[j] == 0){
+        b.push(top);
+        } else
+        a.push(top);
+        }
+
+        while (!b.empty()){
+        ansList.add((Integer)b.pop());
+        }
+
+        while (!a.empty()){
+        temp.push(a.pop());
+        }
+
+        while (!temp.empty()){
+        s.push(temp.pop());
+        }
+        }
+
+        while (!s.empty()){
+        ansList.add((Integer)s.pop());
+        }
+
+        int[] ans = new int[ansList.size()];
+        for(int i = 0; i < ansList.size(); i++) {
+        ans[i] = Integer.parseInt(ansList.get(i).toString());
+        }
+
+        return ans;
+
+        }
+
+
 //Simple Text Editor
 /*
 In this challenge, you must implement a simple text editor. Initially, your editor contains an empty string, . You must perform operations of the following
