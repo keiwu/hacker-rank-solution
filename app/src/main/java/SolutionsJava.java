@@ -9,6 +9,94 @@ import java.io.*;
 import java.util.*;
 
 
+/*
+ * Complete the contacts function below.
+ Use Trie tree to store 26 characters so each node has 26 children.
+ When we add the contact name to the tree, we increase its node size by 1 to keep track of the number of
+ name at that specific node(letter).  Its like finding the prefix at that node.
+ We just return the size at that node to tell how many matches for that prefix.
+
+ More challenging thing is to find out what are the names matching that prefix.
+ */
+ */
+ */
+ */
+ */
+ */
+ */
+static int[]contacts(String[][]queries){
+/*
+ * Write your code here.
+ */
+
+
+class TrieNode {
+    int size;
+    HashMap<Character, TrieNode> children = new HashMap();
+
+    void putChildIfAbsent(char c) {
+        children.putIfAbsent(c, new TrieNode());
+    }
+
+    TrieNode getChild(char c) {
+        return children.get(c);
+    }
+}
+
+class Trie {
+    TrieNode root = new TrieNode();
+
+    void addName(String name) {
+        TrieNode curr = root;
+        for (char c : name.toCharArray()) {
+            curr.putChildIfAbsent(c);
+            curr = curr.getChild(c);
+            curr.size++;    // increse the size of current node
+        }
+    }
+
+    // find name or part of name prefix
+    int findNameCount(String name) {
+        TrieNode curr = root;
+        for (char c : name.toCharArray()) {
+            curr = curr.getChild(c);
+            if (curr == null)
+                return 0;   //if any part of the name is empty, then no match
+        }
+
+        return curr.size;   //size records the number of match when we add
+    }
+}
+
+    Trie trie = new Trie();
+    List<Integer> arrList = new ArrayList<Integer>();
+    String op = "";
+
+        for(int i=0;i<queries.length;i++){
+        for(int j=0;j<queries[i].length;j++){
+        if(queries[i][j].equals("add")){
+        trie.addName(queries[i][j+1]);
+        break;
+        }else if(queries[i][j].equals("find")){
+        int found=trie.findNameCount(queries[i][j+1]);
+        arrList.add(found);
+        break;
+        }
+        }
+        }
+
+
+        int[]ans=new int[arrList.size()];
+        for(int i=0;i<arrList.size();i++){
+        ans[i]=Integer.parseInt(arrList.get(i).toString());
+        }
+
+
+        return ans;
+
+        }
+
+
 // This is a problem to find the prime numbers and use the prime number to
 // do calculation.  The second part is test your queue techniques.
 //  Which is very straight forward.
