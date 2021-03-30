@@ -9,6 +9,68 @@ import java.io.*;
 import java.util.*;
 
 
+//helper function to sanitize index
+static int sanitizeIndex(int index,int n){
+        if(index>=0&&index<n)
+        return index;
+        if(index<0)
+        return index+n;
+
+        return index%n;
+        }
+    /*
+    For each student, we calculate the previous positions that will
+    make the current student not finished.
+    eg.  if we start at index 8, and the extra time for this student to
+    finish is 3.  So basically starting at index 7 or 6 will guarantee a fail for
+    student at index 8.  We get the starting index 6 by current index - extra time + 1
+    which is 8-3+1=6; And the starting index guarantee to pass is current index + 1,
+     which is the next nedex 8+1=9.
+     After we get all the starting index and ending index, we put it in a running sum
+     builder array.  The starting index will contribute 1 and ending index will contribute -1 to the running sum builder.
+
+     Alter the running sum builder is finished, we loop through the values and add them up one by one to find the smallest value.  We are finding the smallest value because
+     smallest unfinished is the same as largest finished.
+         */
+static int solve(int[]t){
+        int arrSize=t.length;
+        int[]runningSumBuilder=new int[arrSize];
+
+        int startIndex;
+        int endIndex;
+        for(int i=0;i<arrSize; i++){
+        if(t[i]==0||t[i]==arrSize)
+        continue;
+
+        startIndex=sanitizeIndex(i-t[i]+1,arrSize);
+        endIndex=sanitizeIndex(i+1,arrSize);
+
+        if(endIndex<=startIndex){
+        runningSumBuilder[0]+=1;
+        }
+
+        runningSumBuilder[startIndex]+=1;
+        runningSumBuilder[endIndex]-=1;
+        }
+
+        int min=Integer.MAX_VALUE;
+        int studentStartIndex=0;
+        int runningSum=0;
+
+
+        for(int i=0;i<arrSize; i++){
+        runningSum=runningSumBuilder[i]+runningSum;
+        if(runningSum<min){
+        studentStartIndex=i;
+        min=runningSum;
+        }
+        }
+
+        return studentStartIndex+1;
+
+
+        }
+
 /*
  * Complete the contacts function below.
  Use Trie tree to store 26 characters so each node has 26 children.
