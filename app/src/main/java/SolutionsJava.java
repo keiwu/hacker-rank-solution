@@ -9,6 +9,30 @@ import java.io.*;
 import java.util.*;
 
 
+public class Solution {
+
+    // Base on the idea that if the [C, D] is the range of the player and [A, B] is the range of the shot.
+    // if D is less than A or if C is greater than B, then there is no overlapping.
+    // So the overlapping is the total of possible overlapping - non overlapping
+    // This solution is simple but timed out on some cases
+    static int solve(int[][] shots, int[][] players) {
+        int count=0;
+        System.out.println(players.length + "<-player, shots " + shots.length);
+        for (int i=0; i<players.length; i++){
+            for (int j=0; j<shots.length; j++){
+                if (shots[j][0] > players[i][1])
+                    count++;
+                else if (shots[j][1]<players[i][0]){
+                    count++;
+                }
+            }
+        }
+
+        return players.length * shots.length - count;
+
+
+    }
+
 //helper function to sanitize index
 static int sanitizeIndex(int index,int n){
         if(index>=0&&index<n)
