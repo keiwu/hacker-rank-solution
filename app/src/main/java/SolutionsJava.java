@@ -8,6 +8,72 @@ import java.util.Stack;
 import java.io.*;
 import java.util.*;
 
+// This uses the Binary Index Tree to solve the same overlapping problem as previous commit.
+// This takes O(logN) times and avoid time out.
+/*
+Dave_NoSleepOwl
+4 years ago
+
+I solved this using two binary indexed trees, longest running time being 0.28s. Let [L1,R1], [L2,R2] be intervals, with L1 <= R1, L2 <= R2. To check whether they overlap or not, we simply check if ((R2 < L1) || (L2 > R1)) holds. If this is true, then they are NOT overlapping, otherwise they overlap.
+
+Let the set of all N intervals be given, say [A1,B1] ... [AN,BN], for each player interval [C,D] we want to count the number of NON-overlapping intervals from [Ai,Bi]'s, then the overlap count can be incremented by (N - (non-overlapping count)). We can use a binary indexed tree to preprocess the [Ai,Bi]'s to store the number of Bi's occurred BEFORE a given position, and another BIT tree for the number of Ai's occurring AFTER a given position.
+
+Then, when the player interval [C,D] is given, simply use the BIT trees above to determine the number of Ai's greater then D, and the number of Bi's less then C.
+ */
+public class Solution {
+
+    public static class FenwikTree {
+        private int BIT[];
+
+        public FenwikTree(int size) {
+            BIT = new int[size];
+        }
+
+        public void add(int index, int value) {
+            while (index <= BIT.length) {
+                BIT[index-1] += value;
+                index += (index & -index);
+            }
+        }
+
+        public int sum(int index) {
+            int s = 0;
+
+            while (index > 0) {
+                s += BIT[index-1];
+                index -= (index & -index);
+            }
+
+            return s;
+        }
+    }
+
+
+    // Complete the solve function below.
+    static int solve(int[][] shots, int[][] players) {
+        int n = shots.length;
+        int m = players.length;
+
+        FenwikTree aTree = new FenwikTree(100000);
+        FenwikTree bTree = new FenwikTree(100000);
+
+        for (int i = 0;i < n; i++) {
+            aTree.add(shots[i][0], 1);
+            bTree.add(shots[i][1], 1);
+        }
+
+        int sum = 0;
+        for (int j = 0; j < m; j++) {
+            int a = players[j][0];
+            int b = players[j][1];
+            sum += m - bTree.sum(a-1) - (m - aTree.sum(b));
+        }
+
+        return sum;
+
+
+    }
+
 
 public class Solution {
 
