@@ -8,6 +8,53 @@ import java.util.Stack;
 import java.io.*;
 import java.util.*;
 
+// Use the stack method to solve the JIm and the Skyscraper's problem. in O(n) time complexity.
+// last two test cases fail due to wrong anser (could be because int/long.  But return change to long still fail)
+public class Solution {
+    static class APair{
+        int value;
+        int counter;
+
+        public APair(int value, int counter){
+            this.value=value;
+            this.counter=counter;
+        }
+    }
+
+    // Complete the solve function below.
+    static long solve(int[] arr) {
+        Stack<APair> s = new Stack();
+        int n = arr.length;
+        int i=0;
+        APair pairTop = new APair(0, 0);
+        long result=0;
+
+        while(i<n){
+            if (!s.empty() && arr[i]>s.peek().value){
+                pairTop=s.pop();
+                if (pairTop.counter>1)
+                    //n*(n-1)/2 is the total combinations out of the numbers
+                    result=result+pairTop.counter*(pairTop.counter-1)/2;
+            } else if (!s.empty() && arr[i]==s.peek().value){
+                s.peek().counter++;     // increement the counter of the same item
+                i++;
+            } else{
+                s.push(new APair(arr[i], 1));
+                i++;
+            }
+        }
+
+        while(!s.empty()){
+            pairTop = s.pop();
+            result=result+pairTop.counter*(pairTop.counter-1)/2;
+        }
+
+        return result*2;
+
+
+    }
+
+
 // brute force method to solve the Jim and the Skyscrapers problem.
 // got timed out
 /*
