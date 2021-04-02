@@ -8,6 +8,71 @@ import java.util.Stack;
 import java.io.*;
 import java.util.*;
 
+// brute force method to solve the Jim and the Skyscrapers problem.
+// got timed out
+/*
+
+Jim has invented a new flying object called HZ42. HZ42 is like a broom and can only fly horizontally, independent of the environment. One day, Jim started his flight from Dubai's highest skyscraper, traveled some distance and landed on another skyscraper of same height! So much fun! But unfortunately, new skyscrapers have been built recently.
+
+Let us describe the problem in one dimensional space. We have in total
+skyscrapers aligned from left to right. The th skyscraper has a height of . A flying route can be described as with , which means, Jim starts his HZ42 at the top of the skyscraper and lands on the skyscraper . Since HZ42 can only fly horizontally, Jim will remain at the height only. Thus the path can be valid, only if each of the skyscrapers is not strictly greater than and if the height of the skyscraper he starts from and arrives on have the same height. Formally, is valid iff and
+
+.
+
+Help Jim in counting the number of valid paths represented by ordered pairs
+
+.
+
+Input Format
+
+The first line contains
+, the number of skyscrapers. The next line contains
+
+space separated integers representing the heights of the skyscrapers.
+
+Output Format
+
+Print an integer that denotes the number of valid routes.
+
+Constraints
+
+and no skyscraper will have height greater than and less than
+
+.
+
+Sample Input #00
+
+6
+3 2 1 2 3 3
+
+Sample Output #00
+
+8
+
+ */
+
+public class Solution {
+
+    // Complete the solve function below.
+    static int solve(int[] arr) {
+        int counter=0;
+        int n = arr.length;
+        for (int i=0; i<n; i++){
+            for (int j=i+1; j<n; j++){
+                if (arr[i]<arr[j]){
+                    break;
+                }
+                else if (arr[i] == arr[j]){
+                    counter++;
+                }
+            }
+        }
+        System.out.println("counter " + counter);
+        return counter*2;
+
+
+    }
+
 // This uses the Binary Index Tree to solve the same overlapping problem as previous commit.
 // This takes O(logN) times and avoid time out.
 /*
