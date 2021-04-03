@@ -7,6 +7,65 @@ import java.util.Stack;
 
 import java.io.*;
 import java.util.*;
+/*
+using two stacks to solve the max index product problem (same as the previous problem) pass all test cases.
+This problem can be easily solved by using two stacks in O(n).
+First Stack stores index of nearest greator element on the left.
+Second Stack stores index of nearest greator element on the right.
+
+ */
+
+public class Solution {
+    // Complete the solve function below.
+    static long solve(int[] arr) {
+        long ans = 0;
+        int n = arr.length;
+        Stack<Integer> s1 = new Stack();
+        Stack<Integer> s2 = new Stack();
+        int[] left = new int[n];
+        int[] right = new int[n];
+        int i;
+
+        left[0]=0;
+        s1.push(0);
+
+        for (i=1; i<n; i++){
+            while(!s1.isEmpty() && arr[i]>=arr[s1.peek()])
+                s1.pop();
+
+            if(s1.isEmpty())
+                left[i] = 0;
+            else
+                left[i] = s1.peek()+1;  //index starts at 0, must add 1 because question's index start at 1
+
+            s1.push(i);
+        }
+
+        right[n-1] = 0;
+        s2.push(n-1);
+
+        for(i=n-2; i>=0; i--){
+            while(!s2.isEmpty() && arr[i]>=arr[s2.peek()])
+                s2.pop();
+
+            if(s2.isEmpty())
+                right[i] = 0;
+            else
+                right[i] = s2.peek()+1;
+
+            s2.push(i);
+        }
+
+        for(i=0;i<n;i++){
+            ans=Math.max(ans,(long)left[i]*right[i]);
+        }
+
+
+
+
+        return ans;
+
+    }
 
 /*
 Using one stack and my idea to solve the max index product problem.
