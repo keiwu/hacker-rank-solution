@@ -8,6 +8,109 @@ import java.util.Stack;
 import java.io.*;
 import java.util.*;
 
+/*
+Using one stack and my idea to solve the max index product problem.
+ This approach fails 3 of the 12 test cases
+
+You are given a list of numbers . For each element at position (), we define and as:
+= closest index j such that j < i and . If no such j exists then = 0.
+= closest index k such that k > i and . If no such k exists then
+
+= 0.
+
+We define
+= * . You need to find out the maximum
+
+among all i.
+
+Input Format
+
+The first line contains an integer
+, the number of integers. The next line contains the
+
+integers describing the list a[1..N].
+
+Constraints
+
+
+Output Format
+
+Output the maximum
+among all indices from to
+
+.
+
+Sample Input
+
+5
+5 4 3 4 5
+
+Sample Output
+
+8
+
+Explanation
+
+We can compute the following:
+
+
+
+ */
+ */
+ */
+public class Solution {
+    static class Pair{
+        int value;
+        int index;
+
+        public Pair(int value, int index){
+            this.value=value;
+            this.index=index;
+        }
+    }
+
+    // Complete the solve function below.
+    static long solve(int[] arr) {
+        long max = 0;
+        long n = arr.length;
+        Stack<Pair> s = new Stack();
+        int i=1;
+        long topValue=0;
+        long indexProduct=0;
+        while (i<=n){
+            if (!s.empty() && arr[i-1] > s.peek().value){
+                topValue=s.pop().value;
+
+                while(!s.empty()){
+                    if(topValue==s.peek().value)
+                        topValue=s.pop().value;
+                    else{
+                        break;
+                    }
+                }
+
+
+                if (!s.empty()){
+                    indexProduct = i * s.peek().index;
+                }
+
+                Pair aPair=new Pair(arr[i-1], i);
+                s.push(aPair);
+
+                if (indexProduct > max)
+                    max = indexProduct;
+            } else {
+                Pair aPair=new Pair(arr[i-1], i);
+                s.push(aPair);
+            }
+            i++;
+        }
+
+        return max;
+
+
+    }
+
 // Use the stack method to solve the JIm and the Skyscraper's problem. in O(n) time complexity.
 // last two test cases fail due to wrong anser (could be because int/long.  But return change to long still fail)
 public class Solution {
