@@ -7,6 +7,154 @@ import java.util.Stack;
 
 import java.io.*;
 import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int q = in.nextInt();
+        //System.out.println("n and q: " + n + " " +q);
+
+        List<List<Node>>adj = new ArrayList<List<Node>>();
+        for (int i=0;  i <= n;  i++) {
+            List<Node> item = new ArrayList<Node>();
+            adj.add(item);
+        }
+
+        int src;
+        int dest;
+        int cost = 1;
+        for (int i=0;  i < n-1;  i++) {
+            src=in.nextInt();
+            dest=in.nextInt();
+            //System.out.println("src and dest: " + src + " " +dest);
+
+            adj.get(src).add(new Node(dest, cost));
+            adj.get(dest).add(new Node(src, cost));
+
+
+        }
+
+        int sum;
+        for (int i=0;  i < q;  i++) {
+            sum=0;
+            int k = in.nextInt();
+            int[] s = new int[k];
+            for (int j=0;  j < k;  j++) {
+                s[j] = in.nextInt();
+                //System.out.print("set to be calculated " + s[j] + " ");
+            }
+            //System.out.println();
+
+            for (int l=0; l<k-1; l++){
+                int source = s[l];
+
+                DPQ dpq = new DPQ(n);
+
+                dpq.dijkstra(adj, source);
+
+                for (int m=l+1; m<k; m++){
+                    int destination=s[m];
+                    sum = sum + source * destination * dpq.dist[destination];
+                    // System.out.println("sum for combo " + source + " destination " +
+                    // destination + " distance " + dpq.dist[destination] + " is " + sum);
+                }
+            }
+
+            System.out.println((int) (sum% (Math.pow(10, 9) + 7)));
+        }
+
+
+    }
+
+    public static class Node implements Comparator<Node>{
+        int node;
+        int cost;
+
+        public Node(int node, int cost){
+            this.node = node;
+            this.cost = cost;
+        }
+
+        public Node(){}
+
+        @Override
+        public int compare(Node node1, Node node2){
+            if (node1.cost < node2.cost)    return -1;
+            if (node1.cost > node2.cost)    return 1;
+            return 0;
+        }
+
+        @Override
+        public String toString(){
+            return "node is " + node + " and cost is " + cost;
+        }
+    }
+
+    static class DPQ{
+        private int V;
+        private int[] dist;
+        private PriorityQueue<Node> pq;
+        List<List<Node>> adj;
+        private Set<Integer> settled;
+
+        public DPQ(int V){
+            this.V = V;
+            dist = new int[V+1];
+            settled = new HashSet<Integer>();
+
+            //priority queue with capacity V and comparator new Node
+            pq = new PriorityQueue<Node>(V, new Node());
+
+        }
+
+        public void dijkstra(List<List<Node>> adj, int src){
+            this.adj = adj;
+
+            for (int i=0; i<V+1; i++){
+                dist[i] = Integer.MAX_VALUE;
+            }
+
+            //System.out.println("dijkstra src " + src);
+
+            // add src node to pq
+            pq.add(new Node(src, 0));
+            //distance to src is 0
+            dist[src] = 0;
+
+            while (settled.size() != V){
+                //System.out.println("head of queque " + pq);
+                // remove the minimum distance node
+                // from the priority queue
+                int u = pq.remove().node;
+                settled.add(u);
+                neighbors(u);
+            }
+
+        }
+
+        public void neighbors(int u){
+            //System.out.println("neighbor of " + u + " size " + adj.get(u).size());
+
+            for (int i=0; i< adj.get(u).size(); i++){
+                Node v = adj.get(u).get(i);
+                //System.out.println("neighbor of u " + v.node);
+
+                if (!settled.contains(v.node)){
+                    //System.out.println("before dist[" + v.node + "] is " + dist[v.node]);
+                    dist[v.node] = Math.min(dist[v.node], dist[u] + v.cost);
+                    // System.out.println("after dist[" + v.node + "] is " + dist[v.node]);
+                    pq.add(new Node(v.node, dist[v.node]));
+                }
+            }
+        }
+
+    }
+}
+
+
 /*
 using two stacks to solve the max index product problem (same as the previous problem) pass all test cases.
 This problem can be easily solved by using two stacks in O(n).
