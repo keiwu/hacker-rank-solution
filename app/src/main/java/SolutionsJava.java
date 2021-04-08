@@ -8,6 +8,18 @@ import java.util.Stack;
 import java.io.*;
 import java.util.*;
 
+/*
+recursion to calculate the sum of an integer array
+ */
+static long aVeryBigSum(long[] ar) {
+        int n = ar.length;
+        if (n==1)
+        return ar[0];
+
+        return ar[0] + aVeryBigSum(Arrays.copyOfRange(ar, 1, n));
+
+
+        }
 
 /*
 This version is an enhanced version comparing to the previous one.  It basically just calculate the distance from source to each neede origin and
