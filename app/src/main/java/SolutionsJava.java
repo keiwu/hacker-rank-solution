@@ -9,6 +9,29 @@ import java.io.*;
 import java.util.*;
 
 /*
+Diagonal difference of a matrix
+ */
+public static int diagonalDifference(List<List<Integer>> arr) {
+        // Write your code here
+        int rows = arr.size();
+        int diagonalSum1= 0;
+        int diagonalSum2=0;
+        for (int i=0; i<rows; i++){
+        for (int j=0; j<rows; j++){
+        if (i==j)
+        diagonalSum1+=arr.get(i).get(j);
+
+        if (i+j==rows-1)
+        diagonalSum2+=arr.get(i).get(j);
+        }
+        }
+
+
+        return Math.abs(diagonalSum1-diagonalSum2);
+
+        }
+
+/*
 recursion to calculate the sum of an integer array
  */
 static long aVeryBigSum(long[] ar) {
