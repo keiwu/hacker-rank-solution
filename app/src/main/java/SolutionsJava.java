@@ -9,6 +9,39 @@ import java.io.*;
 import java.util.*;
 
 /*
+ * Complete the timeConversion function below.
+ convert a am/pm format to 24 hours format
+ */
+ */
+static String timeConversion(String s) {
+        /*
+         * Write your code here.
+         */
+
+        int n=s.length();
+        String format = s.substring(n-2, n);
+        String sub = s.substring(0, n-2);
+        String[] parts = sub.split(":");
+
+        if (format.equalsIgnoreCase("PM")){
+        if (Integer.valueOf(parts[0]) < 12)
+        return Integer.valueOf(parts[0]) + 12 + ":" + parts[1]+":" + parts[2];
+        else
+        return sub;
+        } else{
+        if(Integer.valueOf(parts[0]) < 12)
+        return sub;
+        else
+        return "00"+ ":" + parts[1]+":" + parts[2];
+        }
+
+
+
+
+        }
+
+
+/*
 Diagonal difference of a matrix
  */
 public static int diagonalDifference(List<List<Integer>> arr) {
