@@ -8,6 +8,195 @@ import java.util.Stack;
 import java.io.*;
 import java.util.*;
 
+
+/*
+This version is an enhanced version comparing to the previous one.  It basically just calculate the distance from source to each neede origin and
+stop the rest of the nodes.  This distance assume to be the shortest distance.  But still fail 19/20 test cases.  I guess there's no much difference
+in terms of time saved.  Maybe we should use other method to solve this question instead of Dijkastra's algorithm
+
+
+Kitty's calculation using Dijkastra's shortest path algorithm to calculate the shortest path from origin to each node on the graph.
+Fail on 19/20 test cases due to time out.
+ */
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int q = in.nextInt();
+        //System.out.println("n and q: " + n + " " +q);
+
+        List<List<Node>>adj = new ArrayList<List<Node>>();
+        for (int i=0;  i <= n;  i++) {
+            List<Node> item = new ArrayList<Node>();
+            adj.add(item);
+        }
+
+        int src;
+        int dest;
+        int cost = 1;
+        for (int i=0;  i < n-1;  i++) {
+            src=in.nextInt();
+            dest=in.nextInt();
+            //System.out.println("src and dest: " + src + " " +dest);
+
+            adj.get(src).add(new Node(dest, cost));
+            adj.get(dest).add(new Node(src, cost));
+
+
+        }
+
+        DPQ dpq = new DPQ(n);
+
+        int sum;
+        int source;
+        int destination;
+        for (int i=0;  i < q;  i++) {
+            sum=0;
+            int k = in.nextInt();
+            int[] s = new int[k];
+            for (int j=0;  j < k;  j++) {
+                s[j] = in.nextInt();
+                //System.out.print("set to be calculated " + s[j] + " ");
+            }
+            //System.out.println();
+
+            for (int l=0; l<k-1; l++){
+                source = s[l];
+                //dpq.dijkstra(adj, source);
+
+                List<Integer> destList = new ArrayList<Integer>();
+                List<Integer> destListBu = new ArrayList<Integer>();
+
+
+                for (int m=l+1; m<k; m++){
+                    //destination=s[m];
+                    destList.add(s[m]);
+                    destListBu.add(s[m]);
+                    //sum = sum + source * destination * dpq.dist[destination];
+                    // System.out.println("sum for combo " + source + " destination " +
+                    // destination + " distance " + dpq.dist[destination] + " is " + sum);
+                }
+
+                dpq.dijkstra(adj, source, destList);
+
+                for (Integer des: destListBu){
+                    sum = sum + source * des * dpq.dist[des];
+                }
+
+            }
+
+            System.out.println((int) (sum% (Math.pow(10, 9) + 7)));
+        }
+
+
+    }
+
+    public static class Node implements Comparator<Node>{
+        int node;
+        int cost;
+
+        public Node(int node, int cost){
+            this.node = node;
+            this.cost = cost;
+        }
+
+        public Node(){}
+
+        @Override
+        public int compare(Node node1, Node node2){
+            if (node1.cost < node2.cost)    return -1;
+            if (node1.cost > node2.cost)    return 1;
+            return 0;
+        }
+
+        @Override
+        public String toString(){
+            return "node is " + node + " and cost is " + cost;
+        }
+    }
+
+    static class DPQ{
+        private int V;
+        public int[] dist;
+        private PriorityQueue<Node> pq;
+        List<List<Node>> adj;
+        private Set<Integer> settled;
+        private List<Integer> destList;
+        private boolean endOfCalculation = false;
+
+        public DPQ(int V){
+            this.V = V;
+            dist = new int[V+1];
+            settled = new HashSet<Integer>();
+
+            //priority queue with capacity V and comparator new Node
+            pq = new PriorityQueue<Node>(V, new Node());
+
+        }
+
+        public void dijkstra(List<List<Node>> adj, int src, List<Integer> destLst){
+            this.adj = adj;
+            this.destList = destLst;
+            settled.clear();
+            endOfCalculation = false;
+
+
+            //pq = new PriorityQueue<Node>(V, new Node());
+
+            for (int i=0; i<V+1; i++){
+                dist[i] = Integer.MAX_VALUE;
+            }
+
+            //System.out.println("dijkstra src " + src);
+
+            // add src node to pq
+            pq.add(new Node(src, 0));
+            //distance to src is 0
+            dist[src] = 0;
+
+            while (settled.size() != V && !endOfCalculation){
+                //System.out.println("head of queque " + pq);
+                // remove the minimum distance node
+                // from the priority queue
+                int u = pq.remove().node;
+                settled.add(u);
+                neighbors(u);
+            }
+
+        }
+
+        public void neighbors(int u){
+
+            for (int i=0; i< adj.get(u).size(); i++){
+                Node v = adj.get(u).get(i);
+
+                if (!settled.contains(v.node)){
+                    //System.out.println("before dist[" + v.node + "] is " + dist[v.node]);
+                    dist[v.node] = Math.min(dist[v.node], dist[u] + v.cost);
+                    if (destList.contains(v.node)){
+                        destList.remove(new Integer(v.node));
+                    }
+
+                    if (destList.isEmpty()){
+                        endOfCalculation = true;
+                        break;
+                    }
+                    // System.out.println("after dist[" + v.node + "] is " + dist[v.node]);
+                    pq.add(new Node(v.node, dist[v.node]));
+                }
+            }
+        }
+
+    }
+}
+
+
+/*
+Kitty's calculation using Dijkastra's shortest path algorithm to calculate the shortest path from origin to each node on the graph.
+Fail on 19/20 test cases due to time out.
+ */
 public class Solution {
 
     public static void main(String[] args) {
