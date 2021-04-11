@@ -8,6 +8,68 @@ import java.util.Stack;
 import java.io.*;
 import java.util.*;
 
+
+/*
+    Given an array of integers and a positive integer k , determine the number of pairs where i < j and ar[i]+ ar[j] is divisible by .
+    We can do O(n^2) by brute force.  However, we noticed we can use remainder of k to ground k groups of numbers.  then remainder 1 and k-1 is one group, 2 and k-2 is one group etc...
+    This achieves O(n) times
+
+
+    */
+ */
+ */
+ */
+// Complete the divisibleSumPairs function below.
+static int divisibleSumPairs(int n, int k, int[] ar) {
+        Map<Integer, List<Integer>> map = new HashMap();
+        for (int i=0; i<ar.length; i++){
+        int remainder = ar[i]%k;
+        if (map.containsKey(remainder)){
+        List<Integer> itemsList = map.get(remainder);
+        itemsList.add(ar[i]);
+        map.put(remainder, itemsList);
+        } else{
+        List<Integer> itemsList = new ArrayList<Integer>();
+        itemsList.add(ar[i]);
+        map.put(remainder, itemsList);
+        }
+        }
+
+        for (Map.Entry<Integer, List<Integer>> entry: map.entrySet()){
+        List<Integer> items = entry.getValue();
+        Integer key = entry.getKey();
+
+        for (int i=0; i<items.size(); i++){
+        System.out.print("key " + key + " value : " + items.get(i) + " ");
+        }
+        System.out.println();
+        }
+
+        int l=1;
+        int counter=0;
+        if (map.isEmpty())
+        return 0;
+
+        if (map.containsKey(0))
+        counter= map.get(0).size() * (map.get(0).size()-1) / 2;
+        for (int j=1; j<k; j++){
+        if (j>k-l)
+        break;
+
+        if (map.containsKey(j) && map.containsKey(k-l)){
+        if (j==k-l)
+        counter+=map.get(j).size() * (map.get(k-l).size()-1)/2;
+        else
+        counter+=map.get(j).size() * map.get(k-l).size();
+        }
+        l++;
+        }
+
+        return counter;
+
+
+        }
+
 /*
 Basically this is a problem finding the Smallest Common Multiplier and Largest Common Factor problem
 
