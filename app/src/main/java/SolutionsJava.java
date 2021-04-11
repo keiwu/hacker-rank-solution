@@ -9,6 +9,135 @@ import java.io.*;
 import java.util.*;
 
 /*
+Basically this is a problem finding the Smallest Common Multiplier and Largest Common Factor problem
+
+There will be two arrays of integers. Determine all integers that satisfy the following two conditions:
+
+    The elements of the first array are all factors of the integer being considered
+    The integer being considered is a factor of all elements of the second array
+
+These numbers are referred to as being between the two arrays. Determine how many such numbers exist.
+
+Example
+
+There are two numbers between the arrays: and .
+, , and for the first value.
+, and , for the second value. Return
+
+.
+
+Function Description
+
+Complete the getTotalX function in the editor below. It should return the number of integers that are betwen the sets.
+
+getTotalX has the following parameter(s):
+
+    int a[n]: an array of integers
+    int b[m]: an array of integers
+
+Returns
+
+    int: the number of integers that are between the sets
+
+ */
+
+class Result {
+
+    /*
+     * Complete the 'getTotalX' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts following parameters:
+     *  1. INTEGER_ARRAY a
+     *  2. INTEGER_ARRAY b
+     */
+
+    public static int getTotalX(List<Integer> a, List<Integer> b) {
+        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+
+        // This step gets the Smallest Common Multiplier of all the integers of a
+        for (int i=0; i<a.size(); i++){
+            int number = a.get(i);
+            for (int j=2; j<=number; j++){
+                int jPrimeCounter = 0;
+                while (number%j==0){
+                    number=number/j;
+                    jPrimeCounter++;
+                }
+
+                if (map.containsKey(j)){
+                    if (jPrimeCounter > map.get(j))
+                        map.put(j, jPrimeCounter);
+                } else if (jPrimeCounter>0){
+                    map.put(j, jPrimeCounter);
+                }
+            }
+        }
+
+        Set entrySet = map.entrySet();
+
+        // Obtaining an iterator for the entry set
+        Iterator it = entrySet.iterator();
+
+        // Iterate through HashMap entries(Key-Value pairs)
+        int scm=1;
+        while(it.hasNext()){
+            Map.Entry me = (Map.Entry)it.next();
+            scm *= Math.pow(Double.valueOf((Integer)me.getKey()), Double.valueOf((Integer)me.getValue()));
+
+        }
+
+
+        map.clear();
+
+        for (int i=0; i<b.size(); i++){
+            int number = b.get(i);
+            int entries = 0;
+            //notice b.get(i) instead of using number.
+            //this is purposely done to insert 1 (x^0 where x is the possible values of j), so when not all numbers have a common factor we use 1 instead for the common factor.
+            for (int j=2; j<=b.get(i); j++){
+                int jPrimeCounter = 0;
+                while (number%j==0){
+                    number=number/j;
+                    jPrimeCounter++;
+                }
+
+                if (map.containsKey(j)){
+                    if (jPrimeCounter < map.get(j))
+                        map.put(j, jPrimeCounter);
+                } else if (jPrimeCounter>0){
+                    map.put(j, jPrimeCounter);
+                } else  //this will make all the other j's have a 0 counter, necessary for when there are no common prime factor's.  EG. 2x2x2x3 and 2x2x2, with this else statement, we are ensuring 3^1 is not considered to be smallest, but 3^0 = 1 is smallest
+                    map.put(j, 0);
+            }
+
+
+        }
+
+        entrySet = map.entrySet();
+        it = entrySet.iterator();
+        int lcf=1;
+        while(it.hasNext()){
+            Map.Entry me = (Map.Entry)it.next();
+            lcf *= Math.pow(Double.valueOf((Integer)me.getKey()), Double.valueOf((Integer)me.getValue()));
+
+        }
+
+        int counter = 0;
+        for (int k= scm; k<=lcf; k++){
+            //k%scm==0 to ensure the k's are divisible by the scm
+            if (lcf%k==0 && k%scm==0){
+                counter++;
+            }
+        }
+
+        return counter;
+    }
+
+}
+
+
+/*
 You are choreographing a circus show with various animals. For one act, you are given two kangaroos on a number line ready to jump in the positive direction (i.e, toward positive infinity).
 
     The first kangaroo starts at location x1
