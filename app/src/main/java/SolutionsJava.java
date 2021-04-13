@@ -8,6 +8,79 @@ import java.util.Stack;
 import java.io.*;
 import java.util.*;
 /*
+A teacher asks the class to open their books to a page number. A student can either start turning pages from the front of the book or from the back of the book. They always turn pages one at a time. When they open the book, page
+
+is always on the right side:
+
+image
+
+When they flip page
+, they see pages and . Each page except the last page will always be printed on both sides. The last page may only be printed on the front, given the length of the book. If the book is pages long, and a student wants to turn to page
+
+, what is the minimum number of pages to turn? They can start at the beginning or the end of the book.
+
+Given
+and , find and print the minimum number of pages that must be turned in order to arrive at page .
+ */
+
+static int pageCount(int n, int p) {
+        /*
+         * Write your code here.
+         */
+
+        int pagesTurn=0;
+        int minPagesTurn=Integer.MAX_VALUE;
+
+        //turning from back, if odd number of pages, the opening page contains 2 pages
+        // so we have n-p+1-2 = n-p-1 pages more to go.  Each turn shows 2 pages, so /2
+        if (n%2!=0){
+        pagesTurn = (n-p-1)/2;
+        if (pagesTurn<0)
+        pagesTurn=0;
+
+        //this ensure no negative pages
+        if ((n-p-1)%2>0){
+        pagesTurn++;
+        }
+        if (pagesTurn < minPagesTurn)
+        minPagesTurn=pagesTurn;
+
+        } else {
+        // if even number of pages, we have n-p+1-1 = n-p pages
+        // -1 because we have only 1 page in the last open page
+        pagesTurn = (n-p)/2;
+        if (pagesTurn<0)
+        pagesTurn=0;
+
+        if ((n-p)%2>0){
+        pagesTurn++;
+        }
+        if (pagesTurn < minPagesTurn)
+        minPagesTurn=pagesTurn;
+        }
+
+
+        // turning from the front
+        pagesTurn = (p-1)/2;
+
+        if (pagesTurn<0)
+        pagesTurn=0;
+
+        if ((p-1)%2>0){
+        pagesTurn++;
+        }
+
+        if (pagesTurn < minPagesTurn)
+        minPagesTurn=pagesTurn;
+
+        return minPagesTurn;
+
+
+
+        }
+
+
+/*
 Convert a day in 1700 to 2700 to date
 
 Marie invented a Time Machine and wants to test it by time-traveling to visit Russia on the Day of the Programmer (the 256th day of the year) during a year in the inclusive range from 1700 to 2700.
