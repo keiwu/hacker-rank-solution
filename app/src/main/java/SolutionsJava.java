@@ -8,6 +8,46 @@ import java.util.Stack;
 import java.io.*;
 import java.util.*;
 
+public class Solution {
+
+    /*  Given a budget, buy two items to maximize the money spent.
+        // we sort the keyboard in descending order and drives in accsending order.
+        // We iterate the item in keyboard and drives until the sum is greater than
+        // our budget b.  We keep that sum as the temporary max.  Then we start from
+        // the next element of keyboard and continue at the element of drive where it
+        // breaks the max budget when it were summing up with the previous keyboard item.
+        // This will avoid looping for the entire drives items again.     */
+    static int getMoneySpent(int[] keyboards, int[] drives, int b) {
+        /*
+         * Write your code here.
+         */
+        int n = keyboards.length;
+        int m = drives.length;
+        int max=-1;
+        Arrays.sort(keyboards);
+        Arrays.sort(drives);
+
+        // we sort the keyboard in descending order and drives in accsending order.
+        // We iterate the item in keyboard and drives until the sum is greater than
+        // our budget b.  We keep that sum as the temporary max.  Then we start from
+        // the next element of keyboard and continue at the element of drive where it
+        // breaks the max budget when it were summing up with the previous keyboard item.
+        // This will avoid looping for the entire drives items again.
+        int j=0;
+        for(int i = n-1; i >=0; i--){    //putting j at the outside loop preventing from restarting from beginning again
+            for(; j < m; j++){
+                System.out.println("keyboard " + i + " is " + keyboards[i] + " drives " + j + " is " + drives[j]);
+                if(keyboards[i]+drives[j] > b) break; //This prevents j from incrementing
+                if(keyboards[i]+drives[j] > max)
+                    max = keyboards[i]+drives[j];
+            }
+        }
+
+        return max;
+
+    }
+
+
 /*/
 DDUUUUDD return 1 valley because we go down 2 and go back up 2 to get to the sea level.
 We don't count UUDD because that's count as mountain.
