@@ -7,6 +7,45 @@ import java.util.Stack;
 
 import java.io.*;
 import java.util.*;
+
+/*/
+DDUUUUDD return 1 valley because we go down 2 and go back up 2 to get to the sea level.
+We don't count UUDD because that's count as mountain.
+WE can use stack but time out if input is large.
+The following has no time out issue without using stack
+ */
+ */
+ */
+ */
+/*
+ * Complete the 'countingValleys' function below.
+ *
+ * The function is expected to return an INTEGER.
+ * The function accepts following parameters:
+ *  1. INTEGER steps
+ *  2. STRING path
+ */
+
+public static int countingValleys(int steps, String path) {
+        // Write your code here
+        int counter=0;
+        int levels=0;
+
+        for (int i=0; i<path.length(); i++){
+        if (path.charAt(i)=='U'){
+        levels++;
+        } else
+        levels--;
+
+        if (levels==0 && path.charAt(i)=='U')
+        counter++;
+
+
+        }
+
+        return counter;
+
+        }
 /*
 A teacher asks the class to open their books to a page number. A student can either start turning pages from the front of the book or from the back of the book. They always turn pages one at a time. When they open the book, page
 
