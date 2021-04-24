@@ -8,6 +8,72 @@ import java.util.Stack;
 import java.io.*;
 import java.util.*;
 
+// Swaping integers a number of times in an array to get the largest permutation:
+/*
+eg. 1 2 3 4 5, swaping once the largest permuation is 5 2 3 4 1, twice is 5 4 3 2 1
+The trick is to update the source array 's index position of the swapped index.
+ */
+ */
+public class Solution {
+
+    // Complete the largestPermutation function below.
+    static int[] largestPermutation(int k, int[] arr) {
+        // index array to keep track of the index of every element in the original array.
+        // This is crusial as it will save time to search for the index.
+        int[] index = new int[arr.length+1];
+
+        for (int i=0; i<arr.length; i++){
+            index[arr[i]]=i;
+        }
+
+        int current = arr.length;
+        int j;
+
+        // if number of swap is larger than the length of the source array,
+        // we just return a sorted list begining from the the size of the array.
+        // size of the array is the largest value in the input int array.
+        // Elements in the input array ranges from 1 to size of the array, and they are distinct.
+        if (k >= arr.length){
+            for (int i=0; i<arr.length; i++){
+                arr[i]=current;
+                current--;
+            }
+            return arr;
+        }
+
+        //swap the first element with the largest element, and second element with 2nd largest element......
+        // at the same time update the index array to reflect the new index of the moved element
+        for (j=0; j<k; j++){
+
+            int src = index[current];
+            if (!swap(src, j, arr, index)){
+                if (k+1 <= arr.length)
+                    k++;
+            }
+
+            current--;
+        }
+
+
+
+        return arr;
+
+
+    }
+
+    static boolean swap(int src, int dest, int[] arr, int[] index){
+        if (src == dest)
+            return false;
+
+        index[arr[src]] = dest;
+        index[arr[dest]] = src;
+        int temp = arr[src];
+        arr[src] = arr[dest];
+        arr[dest] = temp;
+        return true;
+    }
+
+
 public class Solution {
 
     /*  Given a budget, buy two items to maximize the money spent.
