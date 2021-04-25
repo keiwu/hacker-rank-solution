@@ -8,6 +8,80 @@ import java.util.Stack;
 import java.io.*;
 import java.util.*;
 
+/*
+Sort an array of numeric strings where each string is a posiive number with anywhere from 1 to 1000000 digits.
+Sort the array's elments in non-decreaseing or ascending order of their integer values and return the sorted array.
+*****
+My idea is to implement my own MyString class which implements Comparable interface.
+In the compareTo method of the MyString class, I check if the two strings are the same length.
+If they are I compare them at each Char begining from the Left Most one.
+
+It fails one of the test case with 200000 elements due to time out.  got 16.80/20
+ */
+class Result {
+
+    /*
+     * Complete the 'bigSorting' function below.
+     *
+     * The function is expected to return a STRING_ARRAY.
+     * The function accepts STRING_ARRAY unsorted as parameter.
+     */
+
+    static class MyString implements Comparable<MyString>{
+        String str;
+
+        public MyString(String str){
+            this.str=str;
+        }
+
+        private Integer length(){
+            return this.str.length();
+        }
+
+        private Character charAt(int i){
+            return this.str.charAt(i);
+        }
+
+        @Override
+        public int compareTo(MyString aStr){
+            // this.str length compare to aStr.length
+            // if this.str length > aString.length is true, return 1;
+            // if this.str length > aString.length is false, return -1;
+            // if they are equal, return 0
+            int ans = ((Integer) this.str.length()).compareTo(aStr.length());
+
+            if (ans==0){
+                for (int i=0; i<aStr.length(); i++){
+                    if (this.str.charAt(i)!=aStr.charAt(i)){
+                        return ((Character) this.str.charAt(i)).compareTo((aStr.charAt(i)));
+                    }
+                }
+            }
+
+            return ans;
+        }
+    }
+
+    public static List<String> bigSorting(List<String> unsorted) {
+        // Write your code here
+
+        List<MyString> myString = new ArrayList<MyString>();
+        for (int i=0; i<unsorted.size(); i++){
+            myString.add(new MyString(unsorted.get(i)));
+        }
+
+        Collections.sort(myString);
+
+        List<String> list = new ArrayList<String>();
+
+        for (int i=0; i<myString.size(); i++){
+            list.add(myString.get(i).str);
+        }
+        return list;
+
+    }
+
+}
 class Result {
 
     /*
