@@ -7,6 +7,64 @@ import java.util.Stack;
 
 import java.io.*;
 import java.util.*;
+/*
+This version passed all test cases.
+It improves the compareTo method without using the build-in compareTo
+ */
+class Result {
+
+    static class MyString implements Comparable<MyString>{
+        String str;
+
+        public MyString(String str){
+            this.str=str;
+        }
+
+        private Integer length(){
+            return this.str.length();
+        }
+
+        private Character charAt(int i){
+            return this.str.charAt(i);
+        }
+
+        @Override
+        public int compareTo(MyString aStr){
+
+            if (str.length()!=aStr.length())
+                return str.length()-aStr.length();
+
+            for (int i=0; i<aStr.length(); i++){
+                int result = this.str.charAt(i) - aStr.charAt(i);
+                if (result!=0)  //if they are not equal, return the reslt
+                    return result;
+            }
+
+            //they are equal at this step
+            return 0;
+
+        }
+    }
+
+    public static List<String> bigSorting(List<String> unsorted) {
+        List<MyString> myString = new ArrayList<MyString>();
+        for (int i=0; i<unsorted.size(); i++){
+            myString.add(new MyString(unsorted.get(i)));
+        }
+
+        Collections.sort(myString);
+
+        List<String> list = new ArrayList<String>();
+
+        for (int i=0; i<myString.size(); i++){
+            list.add(myString.get(i).str);
+        }
+        return list;
+
+    }
+
+}
+
 
 /*
 Sort an array of numeric strings where each string is a posiive number with anywhere from 1 to 1000000 digits.
