@@ -8,6 +8,71 @@ import java.util.Stack;
 import java.io.*;
 import java.util.*;
 
+class Result {
+
+    /*
+     * Complete the 'jimOrders' function below.
+     *
+     * The function is expected to return an INTEGER_ARRAY.
+     * The function accepts 2D_INTEGER_ARRAY orders as parameter.
+     */
+
+     /*
+     Jim's Burgers has a line of hungry customers. Orders vary in the time it takes to prepare them. Determine the order the customers receive their orders. Start by numbering each of the customers from to
+
+, front of the line to the back. You will then be given an order number and a preparation time for each customer.
+
+The time of delivery is calculated as the sum of the order number and the preparation time. If two orders are delivered at the same time, assume they are delivered in ascending customer number order.
+     */
+
+    static class Pair implements Comparable<Pair>{
+        Integer time;
+        Integer id;
+
+        public Pair(int time, int id){
+            this.time=time;
+            this.id=id;
+        }
+
+        @Override
+        public int compareTo(Pair p){
+            /* If this.time > p.time, return 1;
+                if this.time < p.time, return -1;
+                otherwise return 0
+            */
+
+            int ans = this.time.compareTo(p.time);
+
+            if (ans==0)
+                ans = this.id.compareTo(p.id);
+
+            return ans;
+        }
+    }
+
+    public static List<Integer> jimOrders(List<List<Integer>> orders) {
+        // The tricky part is to write a Pair class implementing Comparable.
+        // Also the 2nd field of Pair class stored the id of the customer;
+        Pair[] arr = new Pair[orders.size()];
+        for (int i=0; i<orders.size(); i++){
+            arr[i]=new Pair(orders.get(i).get(0)+orders.get(i).get(1), i);
+        }
+
+        Arrays.sort(arr);
+
+        List<Integer> list = new ArrayList<Integer>();
+
+        for (int i=0; i<arr.length; i++){
+            list.add(arr[i].id+1);
+        }
+
+        return list;
+
+    }
+
+}
+
+
 // Swaping integers a number of times in an array to get the largest permutation:
 /*
 eg. 1 2 3 4 5, swaping once the largest permuation is 5 2 3 4 1, twice is 5 4 3 2 1
