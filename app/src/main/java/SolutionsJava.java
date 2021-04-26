@@ -7,6 +7,53 @@ import java.util.Stack;
 
 import java.io.*;
 import java.util.*;
+
+/*
+sorting the array as before.  but using bubble sor(is this a bubble sort).
+Failed 2 test cases due to time out
+ */
+ */
+
+class Result {
+
+    public static List<String> bigSorting(List<String> unsorted) {
+        int n = unsorted.size()-1;
+
+        for (int i=0; i<unsorted.size(); i++){
+            for (int j=0; j<n; j++){
+                if (isBigger(unsorted.get(j), unsorted.get(j+1)))
+                    swap(j, j+1, unsorted);
+            }
+            n--;
+        }
+        return unsorted;
+
+    }
+
+    static void swap(int i1, int i2, List<String> unsorted){
+        String temp = unsorted.get(i2);
+        unsorted.set(i2, unsorted.get(i1));
+        unsorted.set(i1, temp);
+    }
+
+    public static boolean isBigger(String s1, String s2){
+        if (s1.length() > s2.length())
+            return true;
+        else if (s1.length() < s2.length())
+            return false;
+        else {
+            for (int i=0; i<s1.length(); i++){
+                int result = s1.charAt(i) - s2.charAt(i);
+                if (result!=0)  //if they are not equal, return the reslt
+                    return result>0;
+            }
+        }
+
+        return false;
+    }
+
+}
+
 /*
 This version passed all test cases.
 It improves the compareTo method without using the build-in compareTo
