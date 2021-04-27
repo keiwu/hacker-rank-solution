@@ -7,6 +7,55 @@ import java.util.Stack;
 
 import java.io.*;
 import java.util.*;
+
+
+
+/*
+        Insertion Sort:
+        Input is a list of unsorted integers.
+        Output is the same list with sorted integers.
+        This is an in place sort, no need to create secondary array.  Saves memory.
+        1st element of the array is sorted, so we start from the 2nd element all the
+        way to the last element.
+        We compare the elements before the first unsorted element.
+        If the previous element is greater than the unsorted element,
+        we move this previous element to the next index position.
+        If the previous element is less or equal to the unsorted element,
+        the unsorted element is placed right after the previous element.
+
+        *Note, if we are compare all the previous elements until the first
+        element and the unsorted element is still less or equal to it,
+        we just place it at the begining of the array.  This is reflected by
+        if (j==0){
+            arr.set(j, curr);
+        }
+    */
+public static void insertionSort2(int n, List<Integer> arr) {
+        // Write your code here
+        int curr;
+        for (int i=1; i<n; i++){
+        curr = arr.get(i);
+        for (int j=i-1; j>=0; j--){
+        if (curr <=  arr.get(j)){
+        arr.set(j+1, arr.get(j));
+        if (j==0){
+        arr.set(j, curr);
+        }
+        } else {
+        arr.set(j+1, curr);
+        break;
+        }
+        }
+
+        for (int k=0; k<n; k++){
+        System.out.print(arr.get(k) + " ");
+        }
+        System.out.println();
+        }
+
+        }
+
+
 /*
 previous was pushed successfully using token.
 test again
