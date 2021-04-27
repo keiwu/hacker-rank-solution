@@ -7,6 +7,66 @@ import java.util.Stack;
 
 import java.io.*;
 import java.util.*;
+/*
+    My own implementation of quick sort: showing each elements at each partition and merge
+    Idea: Treat the first item in the array as the pivot.
+    Partition the array in 3 sub arrays with left < pivot, right > pivot and mid == pivot.
+    Each left and right sub arrays can further partition in to left/right/mid sub arrays until only 1 or less element left.
+    At each partition, we followed by a merge operation.  When all the sub arrays are all done,
+ */
+ */
+ */
+ */
+ */
+public static List<Integer> quickSort(List<Integer> arr) {
+        // Write your code here
+        int pivot = arr.get(0);
+        List<Integer> left = new ArrayList<Integer>();
+        List<Integer> mid = new ArrayList<Integer>();
+        List<Integer> right = new ArrayList<Integer>();
+
+        for (int i=1; i<arr.size(); i++){
+        if (arr.get(i)<pivot){
+        left.add(arr.get(i));
+        } else if (arr.get(i)>pivot){
+        right.add(arr.get(i));
+        } else
+        mid.add(arr.get(i));
+        }
+
+        if (left.size() > 1)
+        left = quickSort(left);
+
+        if (right.size() > 1)
+        right = quickSort(right);
+
+        mid.add(pivot);
+
+        List<Integer> ans = new ArrayList<Integer>();
+        for (int i=0; i<left.size(); i++){
+        System.out.print(left.get(i) + " ");
+        ans.add(left.get(i));
+        }
+
+        for (int i=0; i<mid.size(); i++){
+        System.out.print(mid.get(i) + " ");
+        ans.add(mid.get(i));
+        }
+
+        for (int i=0; i<right.size(); i++){
+        System.out.print(right.get(i) + " ");
+        ans.add(right.get(i));
+        }
+
+        System.out.println();
+
+        return ans;
+
+
+
+
+
+        }
 
 
 
