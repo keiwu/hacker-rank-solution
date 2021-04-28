@@ -7,6 +7,76 @@ import java.util.Stack;
 
 import java.io.*;
 import java.util.*;
+
+/*
+In place quick sort to save space.
+It always use the last element of an input array as a pivot.
+This using the last element of an array as pivot is called Lomuto partition scheme.
+ */
+
+ */
+ */
+ */
+
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int[] arr = new int[n];
+
+        for (int i=0; i<n; i++){
+            arr[i] = in.nextInt();
+            // System.out.println(arr[i]);
+
+        }
+
+        quickSort(arr, 0, n-1);
+    }
+
+    public static int partition(int[] arr, int lo, int hi){
+        int pivot = arr[hi];
+        int i = lo;
+
+        for (int j=lo; j<hi; j++){
+            if (arr[j] < pivot){
+                swap(arr, i, j);
+                i=i+1;
+            }
+        }
+
+        swap(arr, i, hi);
+
+        return i;
+    }
+
+    public static void swap(int[] arr, int i, int j){
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    public static void quickSort(int[] arr, int lo, int hi){
+        //if (hi >= lo){
+        int p = partition(arr, lo, hi);
+        for (int i=0; i<arr.length; i++){
+            System.out.print(arr[i]+ " ");
+        }
+
+        System.out.println();
+        if (p-lo>1)
+            quickSort(arr, lo, p-1);
+
+        if (hi-p>1)
+            quickSort(arr, p+1, hi);
+        // }
+
+
+    }
+}
+
 /*
     My own implementation of quick sort: showing each elements at each partition and merge
     Idea: Treat the first item in the array as the pivot.
