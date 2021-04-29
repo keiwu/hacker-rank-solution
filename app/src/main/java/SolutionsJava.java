@@ -7,6 +7,104 @@ import java.util.Stack;
 
 import java.io.*;
 import java.util.*;
+/*
+Counting sort: not really using the counting sort idea.
+Fails the test cases with 300,000 and 1 million test cases.
+To save time, use StringBuilder but still fails the 2 test cases.
+ */
+ */
+ */
+
+public static void countSort(List<List<String>> arr) {
+        String[] a = new String[101];
+        // for (int i=0; i<a.length; i++){
+        //     a[i]="";
+        // }
+
+        Arrays.setAll(a, i -> "");
+
+        int ind;
+        String str;
+        for (int i=0; i<arr.size(); i++){
+        ind = Integer.valueOf(arr.get(i).get(0));
+        if (i<arr.size()/2){
+        str="-";
+        } else
+        str = arr.get(i).get(1);
+
+        a[ind] = a[ind] + str + " ";
+
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i=0; i<a.length; i++){
+        if (a[i]!="")
+        sb.append(a[i]);
+        }
+
+        System.out.println(sb.toString());
+
+
+
+
+        }
+
+/*
+Counting sort: faile 1 test case with 1 million inputs
+ */
+public static void countSort(List<List<String>> arr) {
+        List<List<String>> list = new ArrayList<List<String>>();
+        int[] a = new int[101];
+
+        for (int i=0; i<a.length; i++){
+        a[i]=-1;
+        }
+
+        int ind;
+        String str;
+
+        for (int i=0; i<arr.size(); i++){
+        List<String> l = new ArrayList<String>();
+        list.add(l);
+        }
+
+        for (int i=0; i<arr.size(); i++){
+        ind = Integer.valueOf(arr.get(i).get(0));
+        if (i<arr.size()/2){
+        str="-";
+        } else
+        str = arr.get(i).get(1);
+
+        if (a[ind]!=-1){
+        int n = a[ind];
+        list.get(n).add(str);
+        //list.set(n, list.get(n));
+        } else {
+        a[ind]=i;
+        List<String> ls = new ArrayList<String>();
+        ls.add(str);
+        list.set(i, ls);
+
+        }
+        }
+
+        StringBuffer sb = new StringBuffer();
+        for (int i=0; i<a.length; i++){
+        if (a[i]<0)
+        continue;
+
+        for (int j=0; j<list.get(a[i]).size(); j++){
+        //System.out.print(list.get(a[i]).get(j) + " ");
+        sb.append(list.get(a[i]).get(j) + " ");
+        }
+        }
+
+        System.out.println(sb.toString());
+
+
+
+        }
+
 
 /*
 In place quick sort to save space.
