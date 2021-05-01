@@ -1,4 +1,34 @@
 
+
+/*  Using bit manipualtion.
+    find the unique integer in an array.
+    All but one integer appear twice in the array.  Find this unique number.
+
+    a ^ a = 0
+    a ^ 0 = a
+
+    ^ is XOR, if two numbers are the same, they will yield 0.
+    a ^ 0 yields a, which is the number we are looking for.
+ */
+ */
+ */
+ */
+ */
+ */
+ */
+ */
+public static int lonelyinteger(List<Integer> a) {
+        // Write your code here
+        int val = 0;
+        for (int i=0; i<a.size(); i++){
+        val = val ^ a.get(i);
+        }
+
+        return val;
+
+        }
+
+
 import java.util.PriorityQueue;
 import java.util.Scanner;
 import java.util.Stack;
