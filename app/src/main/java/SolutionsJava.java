@@ -1,5 +1,26 @@
 
+class Result {
 
+
+    /*
+        Idea: The bits between two numbers differ the most gives the largest number.
+        eg. if l = 7, r = 9; we can take (7, 8) as 7 is 111 and 8 is 1000.
+        7 ^ 8 = 15.  Basically it is 2 to the power of 4 - 1= 15.
+        We have to find the most significant bit for the l ^ r (7 ^ 9) and then  - 1
+        to get the result.
+    */
+
+    public static int maximizingXor(int l, int r) {
+        int xOred = l ^ r;
+        //this gives the number number of significant bit
+        int sigbit = 31 - Integer.numberOfLeadingZeros(xOred);
+        //we left shift 1 sigbit+1 positions and then minus 1  to get the anser.
+        int result = (1<<(sigbit+1)) - 1;
+        return result;
+
+    }
+
+}
 /*  Using bit manipualtion.
     find the unique integer in an array.
     All but one integer appear twice in the array.  Find this unique number.
