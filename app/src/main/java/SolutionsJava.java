@@ -1,6 +1,44 @@
 class Result {
 
     /*
+     * Complete the 'flippingBits' function below.
+     *
+     * The function is expected to return a LONG_INTEGER.
+     * The function accepts LONG_INTEGER n as parameter.
+     */
+
+     /*
+     looping from the lest significant bit and flip it.
+     While flipping, calculate the value at that bit and sum it with the
+     previous calculated bits.  loop 32 times to pad 0 and flipping them
+     */
+
+    public static long flippingBits(long n) {
+        // Write your code here
+        int i=0;
+        long num=0;
+        int lsb;
+        while (i<32){
+            //n&1 will extract the right most bit, then the result is Xor with 1
+            //the Xor will flip the bit.  Ie. if current bit is 1, Xor 1 is 0;
+            //if current bit is 0, Xor with 1 is 1.  Thus flipping the bit.
+            lsb = (int) (n & 1 ^ 1);
+            num=num+ (long) (lsb * Math.pow(2, i));
+            n = n >> 1;
+            i++;
+
+        }
+
+        return num;
+
+    }
+
+}
+
+
+class Result {
+
+    /*
      * Complete the 'sumXor' function below.
      *
      * The function is expected to return a LONG_INTEGER.
