@@ -1,3 +1,50 @@
+class Result {
+
+    /*
+     * Complete the 'sumXor' function below.
+     *
+     * The function is expected to return a LONG_INTEGER.
+     * The function accepts LONG_INTEGER n as parameter.
+     */
+
+    /*
+        n Xor a number between 0 and n inclusive equals to n + a number between
+        0 and n inclusive.  This only happens when the 0 bits of n set to either 0 or 1.
+        Basically we can find the number of 0 bits in n and calculate its manipulation.
+        Eg. if there are 2 zero bits, the possible manipulation is 00, 01, 10, 11,
+        which is 2 to the power of 2 (this 2 is number of zero bits).
+
+        In the following we calculate the number of 1 bits, and then use the total minus
+        the number of 1 bits to get the number of 0 bits.
+
+
+    */
+
+    public static long sumXor(long n) {
+        // Write your code here
+        int oneBits=0;
+        int counter = 0;
+        int zeroBits=0;
+
+        while (n>0){
+            //right most bit & 1, if right most bit is 0, then 0&1 is 0, otherwise 1
+            oneBits += n & 1;
+            //keep tracks of total number of bits
+            counter++;
+
+            // right shift n one bit
+            // eg, if n is 101, right shift 1 bit is 10
+            // if n is 110, right shift 1 bit is 11;
+            n = n >> 1;
+        }
+
+        zeroBits=counter-oneBits;
+
+        return (long) Math.pow(2, zeroBits);
+
+    }
+
+}
 
 class Result {
 
