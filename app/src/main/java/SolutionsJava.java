@@ -1,3 +1,130 @@
+
+
+/*
+    Game of Stones.  Claim to be using dynamic programming but seems the run time is almost the same.
+
+ */
+ */
+
+ */
+
+
+public static String gameOfStones(int n) {
+        // Write your code here
+
+        int i=play(n, 0);
+        if (i==0)
+        return "Second";
+        else
+        return "First";
+
+        }
+
+    /*
+        If p1's turn now, and there are less than 2 stones left, then p1 fail.
+        Return 1 meaning p2 (Second player) winning.
+    */
+public static int play(int n, int player){
+        if (n<2){
+        return player;
+        }
+
+        if (player==0)
+        return (play(n-5, 1)>0 || play(n-3, 1)>0 || play(n-2, 1)>0)?1:0;
+        else
+        return (play(n-5, 0)>0 && play(n-3, 0)>0 && play(n-2, 0)>0)?1:0;
+
+        }
+
+
+
+        }
+*/
+
+ */
+/*
+ Games of stones, O(1) approach
+ */
+class Result {
+
+    /*
+     * Complete the 'gameOfStones' function below.
+     *
+     * The function is expected to return a STRING.
+     * The function accepts INTEGER n as parameter.
+     */
+
+    public static String gameOfStones(int n) {
+
+        // Write your code here
+        if (n%7==0 || n%7==1)
+            return "Second";
+        else
+            return "First";
+
+    }
+
+}
+
+/*
+    Game of stones.
+    Two players called P1 and P2 and are playing a game with a starting number of stones. Player 1 always plays first, and the two players move in alternating turns.
+    The game's rules are as follows:
+    In a single move, a player can remove either 2, 3, or 5
+    stones from the game board.
+    If a player is unable to make a move, that player loses the game.
+
+
+
+
+
+ */
+class Result {
+
+    /*
+     * Complete the 'gameOfStones' function below.
+     *
+     * The function is expected to return a STRING.
+     * The function accepts INTEGER n as parameter.
+     */
+
+    public static String gameOfStones(int n) {
+        // Write your code here
+
+        int i=p1(n);
+        if (i==1)
+            return "Second";
+        else
+            return "First";
+
+    }
+
+    /*
+        If p1's turn now, and there are less than 2 stones left, then p1 fail.
+        Return 1 meaning p2 (Second player) winning.
+    */
+    public static int p1(int n){
+        if (n<2){
+            return 1;
+        }
+
+        return (p2(n-5)>0&& p2(n-3)>0 && p2(n-2)>0)?1:0;
+    }
+
+    /*
+        If p2's turn now, and there are less than 2 stones left, then p2 fail.
+        Return 0 meaning p1 (First player) winning.
+    */
+    public static int p2(int n){
+        if (n<2){
+            return 0;
+        }
+
+        return (p1(n-5)>0 || p1(n-3)>0 || p1(n-2)>0)?1:0;
+    }
+
+}
+
 class Result {
 
     /*
