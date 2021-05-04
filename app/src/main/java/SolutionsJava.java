@@ -1,5 +1,26 @@
 
+class Result {
+            /*     * Complete the 'towerBreakers' function below.     *     * The function is expected to return an INTEGER.    
+        * The function accepts following parameters:     *  1. INTEGER n     *  2. INTEGER m     */
+            /*        player 1 always starts first        if the building is 1 level high, then player 1 lose as no more move.        
+        Or if the number of towers is even number, player 2 can always follow         
+        player 1's move to win the game.  For example, if 2 towers with 6 storeys each,        
+        if player 1 removes 5 and leaving 1 in tower 1, then player2 follows to         
+        removes 5 and leaving 1 in tower 2. Player 1 has no more moves and lose.               
+         If player 1 removes 4 and leaving 2 in tower 1, player2 follows to removes        
+         4 and leaving 2 in tower 1.  Player 1 then removes 1 and leaving 1 in tower 1,        
+         palyer 2 removes 1 and leaving 1 in tower 2.  Again Player 1 has no more move.        player 2 wins.               
+         If player 1 removes 3 and leaving 3 in tower 1, player 2 follows in tower 2.      
+          Player1 then removes 2 and leaving 1, and player 2 follows.  now both towers       
+          has 1 and player 1 has no more available moves, and player 2 wins.              
+          So no matter how player 1 proceeds, at the end it will trying to reduce the tower to 1 so player 2 can no longer move to win the game. 
+         But this only happens when         the number of tower is odd; ie, player 2 can not repeat player 1's move in         
+        another tower(even tower)    */    
 
+public static int towerBreakers(int n, int m) {        
+                return m==1 || n%2==0?2:1;                
+            }
+        }
 /*
     Game of Stones.  Claim to be using dynamic programming but seems the run time is almost the same.
 
