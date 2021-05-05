@@ -43,7 +43,8 @@ class Result {
      Based on this pattern:
 P-position：when someone at here，he loses the game;
 
-N-position：when someone at here，he wins the game;PPNN PPNN PPNN ppN
+N-position：when someone at here，he wins the game;
+PPNN PPNN PPNN ppN
 PPNN ppNN ppNN ppN
 NNNN NNNN NNNN NNN
 NNNN NNNN NNNN NNN
