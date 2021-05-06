@@ -1,4 +1,63 @@
 package kei.su.hackerranksolutions;
+/*
+__pranjal
+        3 months ago
+
+        I don't usually comment but this one took a lot more time so here it goes
+
+        If there are two players 1,2 and two identical towers
+
+        player 2 will always win. ie. any move made by player 1 in tower1 can be made by player2 in tower2 However if the towers are not equal player 1 will win, he can make thetowers identical. Mathematically num (xor) num == 0 ? player2win ; player1win
+
+        For three towers [6,5,3] I can decompose this as [(4,2),(4,1),(2,1)] rearranging [4,4,2,2,1,1] you can see 2 towers of identical height therefore player2 will win Mathematically 6 (xor) 5 (xor) 3 == 0 ? player2win ; player1win this concept can be applied for more than 3 numbers
+
+george_e_greaney
+1 year ago
+
+(for some reason this isn't scrolling, so I have to break this into sections) the values are intermixed with other pairs.
+So a ^ a ^ b ^ b (which would be 0 ^ 0 = 0) is the same as a ^ b ^ a ^ b, just the same as 1 + 2 + 3 + 4 = 10 is the same as 1 + 3 + 2 + 4 = 10.
+so to find out if a list of numbers is all paired values, just xor them all together; the pairs will cancel out and if you wind up with a non-zero result,
+then you have one or more unmatched values in the group.
+
+
+
+
+ */
+
+
+class Result {
+
+    /*
+     * Complete the 'nimGame' function below.
+     *
+     * The function is expected to return a STRING.
+     * The function accepts INTEGER_ARRAY pile as parameter.
+     */
+
+    /*
+    Idea: nimSum (Xor of all pile size) of all the pile sizes.  If it is non zero, the player wins.
+
+    In normal play, the winning strategy is to finish every move with a nim-sum of 0. This is always possible if the nim-sum is not zero before the move. If the nim-sum is zero, then the next player will lose if the other player does not make a mistake. To find out which move to make, let X be the nim-sum of all the heap sizes. Find a heap where the nim-sum of X and heap-size is less than the heap-size; the winning strategy is to play in such a heap, reducing that heap to the nim-sum of its original size with X.
+    */
+    public static String nimGame(List<Integer> pile) {
+        // Write your code here
+
+        int nimSum=0;
+        for (int i=0; i<pile.size(); i++){
+            nimSum = nimSum ^ pile.get(i);
+        }
+
+        if (nimSum>0)
+            return "First";
+        else
+            return "Second";
+
+
+
+    }
+
+}
+
 class Result {
 
 /*
