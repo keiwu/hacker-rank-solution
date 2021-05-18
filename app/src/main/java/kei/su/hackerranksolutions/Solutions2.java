@@ -1,4 +1,36 @@
 package kei.su.hackerranksolutions;
+
+public static String misereNim(List<Integer> pile){
+        // Write your code here
+        int nimSum=0;
+        int counter=0;
+        for(int i=0;i<pile.size();i++){
+            nimSum=nimSum^pile.get(i);
+            if(pile.get(i)==1)
+                counter++;
+        }
+
+        //This to handle the situation when all the piles have exactly 1 object each.
+        // If begeining at even number of piles and First player remove a pile to
+        // reduce to odd number of piles, then First player wins.
+        // Otherwise First player lose.
+        if(counter==pile.size()){
+            if(counter%2==0)
+                return"First";
+            else
+            return"Second";
+        }
+        //if I can make a move so changin nimsum from non 0 to 0, then I will win.
+        //So we need nimsum to be > 0, and after making a move, the nimsum becomes 0
+        if(nimSum>0)
+            return"First";
+        else
+            return"Second";
+
+}
+
+
+
 /*
 __pranjal
         3 months ago
@@ -42,16 +74,15 @@ class Result {
     public static String nimGame(List<Integer> pile) {
         // Write your code here
 
-        int nimSum=0;
-        for (int i=0; i<pile.size(); i++){
+        int nimSum = 0;
+        for (int i = 0; i < pile.size(); i++) {
             nimSum = nimSum ^ pile.get(i);
         }
 
-        if (nimSum>0)
+        if (nimSum > 0)
             return "First";
         else
             return "Second";
-
 
 
     }
@@ -125,7 +156,7 @@ NNNN NNNN NNNN NNN
 
     public static String chessboardGame(int x, int y) {
         // Write your code here
-        if ((x%4==1 || x%4==2) && (y%4==1 ||y%4==2))
+        if ((x % 4 == 1 || x % 4 == 2) && (y % 4 == 1 || y % 4 == 2))
             return "Second";
 
         return "First";
