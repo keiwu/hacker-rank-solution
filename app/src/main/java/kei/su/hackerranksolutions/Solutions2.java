@@ -1,3 +1,100 @@
+/*
+Two people are playing Nimble! The rules of the game are:
+
+    The game is played on a line of n
+
+squares, indexed from 0 to n-1. Each square i(where 0<=i<n) contains Ci
+coins. For example: [0, 2, 3, 0, 6]
+nimble.png
+The players move in alternating turns. During each move, the current player must remove exactly 1
+coin from square i and move it to square j if and only if 0<=j < i
+.
+The game ends when all coins are in square 0
+
+    and nobody can make a move. The first player to have no available move loses the game.
+
+Given the value of n
+
+and the number of coins in each square, determine whether the person who wins the game is the first or second person to move. Assume both players move optimally.
+
+Input Format
+
+The first line contains an integer, T
+, denoting the number of test cases.
+Each of the 2T
+
+subsequent lines defines a test case. Each test case is described over the following two lines:
+
+1. An integer, n , denoting the number of squares.
+2. n space-separated integers, C0, C1, ....., Cn-1 , where each Ci describes the number of coins at square i
+
+    .
+
+Constraints
+1 <= T <= 10^4
+1 <=n <=100
+0<=Ci <=10^9
+
+
+Output Format
+
+For each test case, print the name of the winner on a new line (i.e., either
+or
+
+).
+
+Sample Input
+
+2
+5
+0 2 3 0 6
+4
+0 0 0 0
+
+Sample Output
+
+First
+Second
+
+ */
+
+
+public static String nimbleGame(List<Integer> pile) {
+        int nimSum = 0;
+        //use the position of each dice as its height, then we have
+        // converted the original question to a nim problem.
+        // For example, if the original input is [0, 2, 3, 0, 6],
+        // meaning there are 0 dice in square 0, 2 dices in square 1,
+        // 3 dices in square 2, 0 dice in square 3, and 6 dices in square 4.
+        // We convert to [1, 1, 2, 2, 2, 4, 4, 4, 4, 4, 4], meaning 2 piles of dices
+        // having height of 1 (each of the two dices in square 1 can only have 1 move,
+        // namely, to square 0), 3 pile of dices have heights of 2, and 6 piles of dices
+        // having hieght of 4 (the height meaning the number of ways to move a dice.  The
+        // dice in square 4 can move to square 3, 2, 1, 0, thus a height of 4.)
+
+        // We can now use the nim sum to calculate the answer.
+        // we only need to calculate the squares with odd number of dices.
+        // Further, we only need to calculate XOR 1 if the dices is odd number.
+        // It is true because the even ones are canceled out when calculating the
+        // nim sum with XOR.
+        for (int i = 0; i < pile.size(); i++) {
+            if (pile.get(i)%2!=0){
+                nimSum = nimSum ^ i;
+
+             }
+        }
+
+        if (nimSum > 0)
+        return "First";
+        else
+        return "Second";
+
+
+        }
+
+        }
+
+
 package kei.su.hackerranksolutions;
 
 public static String misereNim(List<Integer> pile){
