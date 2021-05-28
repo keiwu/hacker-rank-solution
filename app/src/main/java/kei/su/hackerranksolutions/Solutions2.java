@@ -1,4 +1,78 @@
 /*
+Find two numbers in an array with a sum in O(n) times.
+Same idea as using HashMap.  This time using Array.
+ */
+ */
+ */
+public static List<Integer> icecreamParlor(int m, List<Integer> arr) {
+        // Write your code here
+        int frequency[] = new int[10001];
+        List result = new ArrayList<Integer>();
+        Arrays.fill(frequency, -1);
+        for (int i=0; i<arr.size(); i++){
+        int x = arr.get(i);
+        int y = m - x;
+
+        if (y>=0){
+        int j = frequency[y];
+
+        if (j!=-1){
+        result.add(j+1);
+        result.add(i + 1);
+        break;
+        }
+
+        frequency[x] = i;
+        }
+
+
+
+        }
+
+        return result;
+
+
+        }
+
+        }
+
+/*
+O(n) time to find two numbers in a list sum up to a number by using hashmap
+ */
+*/
+ */
+public static List<Integer> icecreamParlor(int m, List<Integer> arr) {
+        // Write your code here
+        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+        List result = new ArrayList<Integer>();
+        for (int i=0; i<arr.size(); i++){
+        int x = arr.get(i);
+        int y = m - x;
+
+        //get the index of the other value
+        Integer j = map.get(y);
+
+        //if that value is found, we return the result
+        if (j!=null){
+        result.add(j+1);
+        result.add(i + 1);
+        break;
+        }
+
+        // if not found, we add the current value as key and index as value
+        map.put(x, i);
+
+
+        }
+
+        return result;
+
+
+        }
+
+        }
+
+/*
 Two people are playing Nimble! The rules of the game are:
 
     The game is played on a line of n
