@@ -1,4 +1,34 @@
 /*
+        Problem: Find a integer in the arraylist such that the sum of the numbers
+        on its left is the sum of the numbers on its right.
+
+        Idea: keep a leftSum variable while going thru the list from index 0.
+        The leftSum should equal to half of the (sum of the list minus the number of
+        the current index) / 2.
+
+
+    */
+public static String balancedSums(List<Integer> arr) {
+        // Write your code here
+        int leftSum=0;
+        int sum=0;
+
+        for (int i=0; i<arr.size(); i++){
+        sum+=arr.get(i);
+        }
+
+        for (int j=0; j<arr.size(); j++){
+        if (leftSum==(sum-arr.get(j))/2)
+        return "YES";
+
+        leftSum+=arr.get(j);
+        }
+
+        return "NO";
+
+        }
+
+/*
 Find two numbers in an array with a sum in O(n) times.
 Same idea as using HashMap.  This time using Array.
  */
