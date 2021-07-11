@@ -1,4 +1,96 @@
 /*
+Given a string, remove characters until the string is made up of any two alternating characters.
+When you choose a character to remove, all instances of that character must be removed.
+Determine the longest string possible that contains just two alternating letters.
+
+constraint: character is in the range of [a-z]
+
+eg: "abaccba" will return 5 because removing 'c' will result "ababa" which is length of 5
+
+
+ */
+
+class Result {
+
+    /*
+     * Complete the 'alternate' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts STRING s as parameter.
+     */
+
+    static final int NUMBER_OF_LETTERS = 26;
+    static final int ASCII_OFFSET = 97;
+    public static int alternate(String s) {
+        // Write your code here
+
+        String str = s;
+        Stack<Character> stack = new Stack<>();
+        Map<Character, Integer> map = new HashMap<Character, Integer>();
+        for (int i=0; i<s.length(); i++){
+            if (!stack.isEmpty() &&stack.peek() == s.charAt(i)){
+                str = str.replaceAll(String.valueOf(s.charAt(i)), "");
+                stack.pop();
+
+            } else{
+                stack.push(s.charAt(i));
+            }
+        }
+
+
+        char[][] charMatrix = new char[NUMBER_OF_LETTERS][NUMBER_OF_LETTERS];
+        int[][] countMatrix = new int[NUMBER_OF_LETTERS][NUMBER_OF_LETTERS];
+
+        int max = -1;
+        int idx;
+        char c;
+        for (int i=0; i<str.length(); i++){
+            c = str.charAt(i);
+            idx = (int) c - ASCII_OFFSET;
+
+            for (int j=0; j<NUMBER_OF_LETTERS; j++){
+
+                if (charMatrix[idx][j]!=c && countMatrix[idx][j]!=-1){
+                    countMatrix[idx][j]++;
+
+                } else
+                    countMatrix[idx][j]=-1;
+
+                charMatrix[idx][j]=c;
+            }
+
+            for (int k=0; k<NUMBER_OF_LETTERS; k++){
+                if(charMatrix[k][idx]!=c && countMatrix[k][idx]!=-1){
+                    countMatrix[k][idx]++;
+
+                } else
+                    countMatrix[k][idx] = -1;
+
+                charMatrix[k][idx]=c;
+
+            }
+
+
+        }
+
+        for (int i=0; i<NUMBER_OF_LETTERS; i++){
+            for (int j=0; j<NUMBER_OF_LETTERS; j++){
+                if (countMatrix[i][j]>max)
+                    max = countMatrix[i][j];
+            }
+        }
+
+
+        return max>=2?max:0;
+
+    }
+
+}
+
+
+
+
+    /*
         Problem: Find a integer in the arraylist such that the sum of the numbers
         on its left is the sum of the numbers on its right.
 
