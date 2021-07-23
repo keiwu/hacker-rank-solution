@@ -13,6 +13,68 @@ eg: "abaccba" will return 5 because removing 'c' will result "ababa" which is le
 class Result {
 
     /*
+     * Complete the 'separateNumbers' function below.
+     *
+     * The function accepts STRING s as parameter.
+     */
+
+    public static void separateNumbers(String s) {
+        // Write your code here
+        boolean found = false;
+        int digits = 1;
+        String subStr;
+        int i=0;
+        int subStrLth;
+        long subStrNum;
+        String nextStr;
+        long nextNum;
+        long startNum;
+        while(digits<=s.length()/2){
+            subStr = s.substring(i, digits);
+            subStrNum = Long.parseLong(subStr);
+            startNum = subStrNum;
+            subStrLth = String.valueOf(subStrNum+1).length();
+            int j=subStr.length();
+            while (j<s.length()){
+                int startIdx = j;
+                int endIdx = startIdx + subStrLth;
+                if (endIdx > s.length()){
+                    found = false;
+                    break;
+                }
+                nextStr = s.substring(startIdx, endIdx);
+                nextNum = Long.parseLong(nextStr);
+                if (subStrNum + 1 != nextNum){
+                    found = false;
+                    break;
+                } else if (subStrNum+1 == nextNum && endIdx == s.length()){
+                    found = true;
+                    break;
+                }
+                subStrNum = nextNum;
+                subStrLth = String.valueOf(subStrNum+1).length();
+                j = endIdx;
+            }
+
+            if (found){
+                System.out.println("YES " + startNum);
+                break;
+            }
+            digits++;
+        }
+
+        if (!found)
+            System.out.println("NO");
+
+
+
+    }
+
+}
+
+class Result {
+
+    /*
      * Complete the 'alternate' function below.
      *
      * The function is expected to return an INTEGER.
