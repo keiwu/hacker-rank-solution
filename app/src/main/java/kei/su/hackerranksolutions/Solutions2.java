@@ -1,4 +1,52 @@
 /*
+Problem: Find the number of characters that occur in all strings of a list.
+We store all the characters of the first item in the list to hashset.
+Here hashset helps to remove the duplicate items.
+
+Then we iterate thru the rest of the items in the list against the hashset.
+If each item in the hashset occurs in the items in the list, then we increment the counter meaning we found one more.
+ */
+ */
+ */
+ */
+ */
+ */
+public static int gemstones(List<String> arr) {
+        // Write your code here
+        Set<Character> hset = new HashSet<Character>();
+        if (arr.size()>=1){
+        for (int i=0; i<arr.get(0).length(); i++){
+        hset.add(arr.get(0).charAt(i));
+        }
+        }
+
+        Character current;
+        int counter = 0;
+        boolean found;
+        Iterator<Character> it = hset.iterator();
+        while (it.hasNext()){
+        current = it.next();
+        found = true;
+        for (int i=1; i<arr.size(); i++){
+        if (arr.get(i).indexOf(current)==-1){   //Instead of using contains, we use indexOf to see if the specific character occurs; if not, a -1 is returned
+        found = false;
+        break;
+        }
+        }
+
+        if (found)
+        counter++;
+        }
+
+        return counter;
+
+        }
+
+        }
+
+
+
+/*
 Given a string, remove characters until the string is made up of any two alternating characters.
 When you choose a character to remove, all instances of that character must be removed.
 Determine the longest string possible that contains just two alternating letters.
