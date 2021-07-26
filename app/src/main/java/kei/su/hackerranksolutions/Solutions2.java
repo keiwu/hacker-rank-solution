@@ -1,3 +1,32 @@
+//use retainAll() built in java collection method to keep the matching set.
+//It's like intersection of the sets by using retainAll
+public static int gemstones(List<String> arr) {
+        // Write your code here
+        Set<Character> hset = new HashSet<Character>();
+        if (arr.size()>=1){
+        hset = convertToSet(arr.get(0));
+        }
+
+
+
+        for (int i=1; i<arr.size(); i++){
+        hset.retainAll(convertToSet(arr.get(i)));
+        }
+
+
+
+        return hset.size();
+
+        }
+
+public static Set<Character> convertToSet(String s){
+        Set<Character> hset = new HashSet<Character>();
+        for (char c: s.toCharArray()){
+        hset.add(Character.valueOf(c));
+        }
+        return hset;
+        }
+
 /*
 Problem: Find the number of characters that occur in all strings of a list.
 We store all the characters of the first item in the list to hashset.
