@@ -1,3 +1,60 @@
+
+/*
+ Anagram
+ */
+    Determine the minimum number of changes to make to change
+    one string to another string.  Order doesn't matter.
+
+    idea: iterate the first string and for each letter,
+    check if the 2nd string contains that letter or not.
+    If it contains that letter, remove it from the 2nd string,
+    if it deosn't contain that letter, increment the counter by 1.
+
+    The couner is the min number of changes needed.
+
+    **Logic:
+    If the 2nd string contains the same letter, then no need to change.
+    If the 2nd string doesn't contain the same letter, there is one change.
+    We also have to remove that letter from the 2nd string.  This is because
+    1st string may have duplciate letter, so removing it from 2nd string
+    to avoid double counting
+
+
+
+    */
+
+public static int anagram(String s) {
+        // Write your code here
+
+        if (s.length()%2!=0)
+        return -1;
+
+        int counter=0;
+
+        List<Character> firstHalf = new ArrayList<Character>();
+        List<Character> secondHalf = new ArrayList<Character>();
+
+        for (int i=0; i<s.length()/2; i++){
+        firstHalf.add(s.charAt(i));
+        }
+
+        for (int j=s.length()/2; j<s.length(); j++){
+        secondHalf.add(s.charAt(j));
+        }
+
+        for (int k=0; k<firstHalf.size(); k++){
+        if (secondHalf.contains(firstHalf.get(k))){
+        secondHalf.remove(firstHalf.get(k));
+        } else
+        counter++;
+
+        }
+
+        return counter;
+
+        }
+
+        }
 //use retainAll() built in java collection method to keep the matching set.
 //It's like intersection of the sets by using retainAll
 public static int gemstones(List<String> arr) {
