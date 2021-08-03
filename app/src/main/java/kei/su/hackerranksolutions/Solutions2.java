@@ -1,3 +1,36 @@
+/*
+   Parlindrome:
+   Determine if a string can be arranged into parlindrome.
+   Idea: even number of letters can be separate into two equal groups and arrange into parlindrome.
+   Odd number of letters can be parlindrome only it has one group only.  eg. aaa is parlindrome, but aaabbb is not
+ */
+ */
+ */
+ */
+public static String gameOfThrones(String s) {
+        // Write your code here
+        Map<Character, Integer> hm = new HashMap<Character, Integer>();
+        for (int i=0; i<s.length(); i++){
+        if (hm.containsKey(s.charAt(i))){
+        hm.put(s.charAt(i), hm.get(s.charAt(i))+1);
+        } else
+        hm.put(s.charAt(i), 1);
+        }
+
+        int counter=0;
+        for (Map.Entry<Character, Integer> entry: hm.entrySet()){
+        if (entry.getValue()%2!=0)
+        counter++;
+        }
+
+        if (counter>1)
+        return "NO";
+        else
+        return "YES";
+
+        }
+
+
 
 /*
  Anagram
