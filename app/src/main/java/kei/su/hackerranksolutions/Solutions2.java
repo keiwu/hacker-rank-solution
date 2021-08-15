@@ -1,4 +1,41 @@
 /*
+Given n boxes, each box contain R/G/B color balls.
+What's the minimum operations to separate them.
+The balls are separated if no box contains balls of more than one color.
+* In each operation, you can pick a single ball from some box and put it into another box.
+
+Use of dynamic programing and bitmask technique
+ */
+
+
+
+public void minOperations() {
+        int i, j;
+        for (i = 0; i <= n; i++) {
+        for (j = 0; j <= 7; j++) {
+        dp[i][j] = (1<<30);
+        }
+        }
+        dp[0][0] = 0;
+        for (i = 0; i < n; i++){
+        for (j = 0; j <= 7; j++){
+        dp[i + 1][j | 1] = Math.min(dp[i + 1][j | 1], dp[i][j] + green.get(i) + blue.get(i));
+        dp[i + 1][j | 2] = Math.min(dp[i + 1][j | 2], dp[i][j] + red.get(i) + blue.get(i));
+        dp[i + 1][j | 4] = Math.min(dp[i + 1][j | 4], dp[i][j] + red.get(i) + green.get(i));
+        }
+        }
+        j = 0;
+        for (i = 0; i < n; i++){
+        if (red.get(i) != 0) j |= 1;
+        if (green.get(i) != 0) j |= 2;
+        if (blue.get(i) != 0) j |= 4;
+        }
+        if (dp[n][j] >= (1<<30)) dp[n][j] = -1;
+        System.out.println(dp[n][j]);
+        }
+        }
+
+/*
    Parlindrome:
    Determine if a string can be arranged into parlindrome.
    Idea: even number of letters can be separate into two equal groups and arrange into parlindrome.
